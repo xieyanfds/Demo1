@@ -13,7 +13,7 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.企业账单](#1-企业账单)
 
-[&emsp;&emsp;&emsp;&emsp;1.1tenancyDetail接口](#1-1tenancyDetail接口)
+[&emsp;&emsp;&emsp;&emsp;1.1tenancyDetail接口](#1.1-tenancyDetail接口)
 
 [&emsp;&emsp;&emsp;&emsp;2.机构账单](#2-机构账单)
 
@@ -233,7 +233,7 @@
   |  statusStr  | String |           状态            |
   |     操作      |   按钮   | 调用tenancyDetail接口查看账单详情 |
 
-##### 1. 1 tenancyDetail接口
+##### 1.1 tenancyDetail接口
 
   - URL:/api/bill/tenancyDetail
 
