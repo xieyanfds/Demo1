@@ -33,9 +33,30 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.4showFileds接口说明](#14-showfileds接口说明)
 
-[&emsp;&emsp;&emsp;&emsp;1.5来电通话详情接口](#15-来电通话详情接口)
+[&emsp;&emsp;&emsp;&emsp;1.5来电通话详情](#15-来电通话详情)
 
-[&emsp;&emsp;&emsp;&emsp;1.6IVR详情接口](#16-ivr详情接口)
+[&emsp;&emsp;&emsp;&emsp;1.6来电通话IVR详情](#16-来电通话ivr详情)
+
+[&emsp;&emsp;&emsp;&emsp;1.7满意度调查接口](#17-满意度调查接口)
+
+[&emsp;&emsp;&emsp;&emsp;2.外呼通话记录](#2-外呼通话记录)
+
+[&emsp;&emsp;&emsp;&emsp;2.1外呼通话详情](#21-外呼通话详情)
+
+[&emsp;&emsp;&emsp;&emsp;2.2外呼通话IVR详情](#22-外呼通话ivr详情)
+
+[&emsp;&emsp;&emsp;&emsp;3.WebCall通话记录](#3-webcall通话记录)
+
+[&emsp;&emsp;&emsp;&emsp;3.1WebCall通话详情](#31-webcall通话详情)
+
+[&emsp;&emsp;&emsp;&emsp;3.2WebCall IVR详情](#32-webcall-ivr详情)
+
+[&emsp;&emsp;&emsp;&emsp;4.预测外呼通话记录](#4-预测外呼通话记录)
+
+[&emsp;&emsp;&emsp;&emsp;4.1预测外呼通话详情](#41-预测外呼通话详情)
+
+[&emsp;&emsp;&emsp;&emsp;4.2预测外呼IVR详情](#42-预测外呼ivr详情)
+
 
 ### 交互数据结构
 
@@ -1341,9 +1362,9 @@ smsFee（短信对象）对象也是Fee对象。
 | filedsIndex |  Int   | 字段下标索引 |
 | filedsDesc  | String |  字段描述  |
 
-##### 1.5 来电通话详情接口
+##### 1.5 来电通话详情
 
-- URL:/api/record/ib/ibDetail
+- URL:/api/record/ib/detail
 - Method:GET
 - Content type: application/json
 - 输入参数：
@@ -1356,11 +1377,11 @@ smsFee（短信对象）对象也是Fee对象。
 
 接口返回说明：
 
-|   参数   |   类型   |     描述     |
-| :----: | :----: | :--------: |
-| status |  int   |    状态码     |
-|  msg   | String | 状态说明，例如成功  |
-| result | array  | 来电通话记录详情列表 |
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | 来电通话详情列表  |
 
 接口返回示例：
 
@@ -1372,31 +1393,36 @@ smsFee（短信对象）对象也是Fee对象。
         {
         	"id":"1",
         	"uniqueId":"1",
- 	  	   "agentName":""
-            "answerTime":""
-            "callId":""
-            "callType":""
-            "calleeNumber":""
-            "class":""
-            "clid":""
-            "cno":""
-            "createTime":""
-            "endReason":""
-            "endTime":""
-            "exten":""
-            "gwIp":""
-            "ibRemember":""
-            "ivrFlow":""
-            "ivrId":""
-            "ivrName":""
-            "mainCallType":""
-            "mainUniqueId":""
-            "mainUniqueIdTime":""
-            "recordFile":""
-            "sipCause":""
-            "startTime":""
-            "status":""
-            "totalDuration":""
+ 	  	    "agentName":"",
+            "answerTime":"",
+            "callId":"",
+            "callType":"",
+            "calleeNumber":"",
+            "clid":"",
+            "cno":"",
+            "createTime":"",
+            "endReason":"",
+            "endTime":"",
+            "exten":"",
+            "gwIp":"",
+            "ibRemember":"",
+            "ivrFlow":"",
+            "ivrId":"",
+            "ivrName":"",
+            "mainCallType":"",
+            "mainUniqueId":"",
+            "mainUniqueIdTime":"",
+            "recordFile":[
+                {
+                "file":"file-in",
+                "title":"客户侧",
+                "recordFormat":"1",
+                }
+            ],
+            "sipCause":"",
+            "startTime":"",
+            "status":"",
+            "totalDuration":"",
             "tsiFile":""
          }   
     ],
@@ -1422,7 +1448,7 @@ smsFee（短信对象）对象也是Fee对象。
 |  ibRemember  | String |             主叫记忆             |
 |    callId    | String |            CALLID            |
 
-##### 1.6 IVR详情接口
+##### 1.6 来电通话IVR详情
 
 - URL:/api/record/ib/ivrDetail
 - Method:GET
@@ -1442,3 +1468,1073 @@ smsFee（短信对象）对象也是Fee对象。
 | status |  int   |    状态码    |
 |  msg   | String | 状态说明，例如成功 |
 | result | array  |  ivr对象列表  |
+
+接口返回实例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "ivrName":"123",
+            "path":"",
+            "pathName":"",
+            "action":"播放",
+            "startTime":"2017-10-20 08:20:12", 
+            "endTime": "2017-10-20 09:20:12",
+            "pressKey":"4",
+            "pressTime":"2017-10-20 08:00:12"
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+ivr对象字段说明：
+
+|    参数     |   类型   |                    描述                    |
+| :-------: | :----: | :--------------------------------------: |
+|  ivrName  | String |                  语音导航名称                  |
+|   path    | String |                    节点                    |
+| pathName  | String |                   节点名称                   |
+|  action   |  Int   | 节点类型；1：播放，2：选择，3：留言，4：队列，5：时间，6：地区，7：传真，8：设置变量，9：收号节点，10：等待节点，11：判断节点，12：curl，13：直呼节点，14：数据库，15：会议，16：分支节点Switch |
+| startTime | String |       开始时间，格式为yyyy-MM-dd hh:mm:ss        |
+|  endTime  | String |       结束时间，格式为yyyy-MM-dd hh:mm:ss        |
+| pressKey  | String |                    按键                    |
+| pressTime | String |       按键时间，格式为yyyy-MM-dd hh:mm:ss        |
+
+##### 1.7 满意度调查接口
+
+- URL:/api/record/investigationDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 来电通话记录唯一id |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | 调查记录对象列表  |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "id":"1",
+            "agentCrmId":"26",
+            "agentName":"",
+            "callType":"预览外呼",
+            "cno":"35",
+            "comment":"",
+            "consult":"咨询:电话-",
+            "createTime":"2017-09-12 10:09:09",
+            "customerNumber":"8871632",
+            "duration":"60",
+            "endTime":"2017-09-12 10:10:10",
+            "enterpriseId":"123",
+            "hotline":"88382828",
+            "keys":"",
+            "mainUniqueId":"12",
+            "queue":"13",
+            "queueName":"13",
+            "startTime":"2017-09-12 10:09:10",
+            "transfer":"转移:电话-"
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|       参数       |   类型   |                    描述                    |
+| :------------: | :----: | :--------------------------------------: |
+|   startTime    | String |       开始时间，格式为yyyy-MM-dd hh:mm:ss        |
+|    endTime     | String |       开始时间，格式为yyyy-MM-dd hh:mm:ss        |
+|      cno       | String |                   座席工号                   |
+|   agentName    | String |                   座席名称                   |
+|      keys      | String |                   评分值                    |
+|    callType    | String | 呼叫类型，1：呼入，2：webcall，4：预览外呼，5：预测外呼，6：主叫外呼，9：内部外呼 |
+|  enterpriseId  | String |                   企业id                   |
+|    hotline     | String |                   热线号码                   |
+| customerNumber | String |                   客户号码                   |
+
+##### 1.8 ASR详情
+
+- URL:/api/record/asrDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 来电通话记录唯一id |
+|   callType   | String |    通话类型    |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | ASR详情对象列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "cdrCalleeCno":"100001",
+            "cdrCustomerNumber":"13572379362",
+            "text":"product",
+            "customerRobSpeechCount":"10.3.8.211", 
+            "customerBlankThresholdCount": "2017-10-20 09:20:12"
+            "customerContinuousSpeechCount":"1",
+            "seatRobSpeechCount":"1",
+            "seatBlankThresholdCount":"1",
+            "seatContinuousSpeechCount":"1"
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+ASR详情对象字段说明：
+
+|              参数               |   类型   |                    描述                    |
+| :---------------------------: | :----: | :--------------------------------------: |
+|         cdrCalleeCno          | String |                   座席工号                   |
+|       cdrCustomerNumber       | String |                   客户电话                   |
+|             text              | String |                   消息文本                   |
+|    customerRobSpeechCount     |  Int   | 客户抢话次数，asrAnalysis对象的customerRobSpeechCount字段 |
+|  customerBlankThresholdCount  |  Int   | 客户大段留白次数，asrAnalysis对象的customerBlankThresholdCount字段 |
+| customerContinuousSpeechCount |  Int   | 客户连续讲话次数，asrAnalysis对象的customerContinuousSpeechCount字段 |
+|      seatRobSpeechCount       |  Int   | 座席抢话次数，asrAnalysis对象的seatRobSpeechCount字段 |
+|    seatBlankThresholdCount    |  Int   | 座席大段留白次数，asrAnalysis对象的seatBlankThresholdCount字段 |
+|   seatContinuousSpeechCount   |  Int   | 座席连续讲话次数，asrAnalysis对象的seatContinuousSpeechCount字段 |
+
+##### 2. 外呼通话记录
+
+- URL:/api/record/ob
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                    描述                    |
+| :------------: | :--: | :----: | :--------------------------------------: |
+|   tenancyId    |  必选  | String |                  所属企业id                  |
+| organizationId |  必选  | String |                  所属机构id                  |
+|  departmentId  |  必选  | String |                  所属部门id                  |
+|    callType    | 非必选  |  Int   |       呼叫类型，默认全部，0：全部，1：预览外呼，2：主叫外呼       |
+|     status     | 非必选  |  Int   | 接听状态，默认全部 ，0：全部，1：双方接听，2：座席接听，3：座席未接听，4：客户未接听 |
+|     title      | 非必选  | String | 查询条件，默认客户电话，customer_number：客户电话，cno：座席工号，agent_name：座席姓名，agent_number：座席电话，clid：客户外显号码 |
+|  vadRateBegin  | 非必选  | Float  |                 通话占比起始值                  |
+|   vadRateEnd   | 非必选  | Float  |                 通话占比终止值                  |
+| vadCountBegin  | 非必选  | Float  |                 通话质量起始值                  |
+|  vadCountEnd   | 非必选  | Float  |                 通话质量终止值                  |
+|    province    | 非必选  | String |                 调用获取省接口                  |
+|      city      | 非必选  | string |                 调用获取地区接口                 |
+|   showFileds   |  必选  | string |           调用showFileds接口获取显示字段           |
+|   startDate    |  必选  | string |                   开始时间                   |
+|    endDate     |  必选  | string |                   结束时间                   |
+|     start      | 非必选  | String |                当前页码,默认第一页                |
+|     limit      | 非必选  | String |               每页记录数，默认每页十条               |
+|   searchDate   | 非必选  | String |          查询日期，0：今天，-1：昨天，-29：一月          |
+|     export     | 非必选  |  int   |      100：导出本页，200：导出全部，若导出返回导出文件url      |
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | 外呼通话记录列表  |
+
+接口返回示例:
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": {
+    	[
+            {
+               "id":"1",
+                "agentAreaCode":"101",
+                "agentCrmId":"1",
+                "agentName":"",
+                "agentNumber":"",
+                "answerTime":"",
+                "bridgeDuration":"",
+                "bridgeDurationInt":"",
+                "bridgeTime":"",
+                "callType":"",
+                "callTypeInt":"",
+                "callid":"",
+                "clid":"",
+                "cno":"",
+                "comment":"",
+                "consult":"",
+                "createTime":"",
+                "customerAreaCode":"",
+                "customerCity":"",
+                "customerNumber":"",
+                "customerNumberType":"",
+                "customerProvince":"",
+                "customerVip":"",
+                "endReason":"",
+                "endTime":"",
+                "exten":"",
+                "gwIp":"",
+                "id":"",
+                "investigation":"",
+                "joinQueueTime":"",
+                "leftClid":"",
+                "recordFile":[
+                    {
+                    "file":"file-in",
+                    "title":"客户侧",
+                    "recordFormat":"1",
+                    }
+            	],
+                "rxMos":"",
+                "sipCause":"",
+                "startTime":"",
+                "status":"",
+                "statusTitle":"",
+                "threeway":"",
+                "totalDuration":"",
+                "transfer":"",
+                "tsiFile":"",
+                "txMos":"",
+                "uniqueId":"",
+                "uniqueIdTime":"",
+                "userField":"",
+                "vadCount":"",
+                "vadIn":"",
+                "vadOut":"",
+                "voiceCount":""
+             }   
+    	],
+    	"callType":"0",
+    	"status":"0",
+    	"title":"客户电话",
+    	"value":"",
+    	"totalMap":{
+         "total_count":"100"
+    	},
+    	"startDate":"2017-10-12 00:00:00",
+    	"endDate":"2017-10-29 12:23:23",
+    	"searchDate":"-1",
+    	"showFileds":""
+    }
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|        参数        |   类型   |                    描述                    |
+| :--------------: | :----: | :--------------------------------------: |
+|  customerNumber  | String |                   客户电话                   |
+| customerProvince | String |                  客户所在省份                  |
+|   customerCity   | String |                  客户所在城市                  |
+|       cno        | String |                   座席工号                   |
+|    queueName     | Stirng |                   座席姓名                   |
+|   agentNumber    | String |                   座席电话                   |
+|       clid       | String |                  座席外显号码                  |
+|     leftClid     | String |                  客户外显号码                  |
+|    startTime     | String |       进入系统时间，格式yyyy-MM-dd hh:mm:ss       |
+|    answerTime    | String |        接听时间，格式yyyy-MM-dd hh:mm:ss        |
+|      status      | String | 接听状态,状态有座席接听，座席未接听，双方接听，主叫外呼接听，主叫外呼客户未接听，主叫外呼双方接听 |
+|  bridgeDuration  | String |             通话时长，格式 hh:mm:ss             |
+|  totalDuration   | String |             总时长，格式 hh:mm:ss              |
+|      vadOut      | Float  |                  客户通话占比                  |
+|      vadIn       | Float  |                  座席通话占比                  |
+|     vadCount     | Float  |                   通话质量                   |
+|     callType     | String |         呼叫类型,0：全部，1：预览外呼，2：主叫外呼          |
+|       file       | String |        文件名，recordFile字段对象的file字段         |
+|   recordFormat   |  Int   |    录音格式，recordFile字段对象的recordFormat字段    |
+|      title       | String |       录音标题，recordFile字段对象的title字段        |
+|    endReason     | String |                   客户挂机                   |
+|     sipCause     | String |                   呼叫情况                   |
+|     comment      | String |                    备注                    |
+|    userField     | String |                  自定义字段                   |
+|      callId      | String |                  CALLID                  |
+|     uniqueId     | String |                外呼通话记录唯一id                |
+
+
+
+##### 2.1 外呼通话详情
+
+- URL:/api/record/ob/detail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 外呼通话记录唯一id |
+|  startDate   | String |    开始时间    |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | 外呼通话详情列表  |
+
+接口返回示例:
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "id":"1",
+            "agentAreaCode":"",
+            "agentCrmId":"",
+            "agentName":"",
+            "answerTime":"",
+            "callType":"",
+            "calleeNumber":"",
+            "callid":"",
+            "clid":"",
+            "cno":"",
+            "createTime":"",
+            "endReason":"",
+            "endTime":"",
+            "exten":"",
+            "gwIp":"",
+            "id":"",
+            "interact":"",
+            "ivrFlow":"",
+            "ivrId":"",
+            "ivrName":"",
+            "mainCallType":"",
+            "mainUniqueId":"",
+            "mainUniqueIdTime":"",
+            "recordFile":[
+                    {
+                    "file":"file-in",
+                    "title":"客户侧",
+                    "recordFormat":"1",
+                    }
+            ],
+            "rxMos":"",
+            "sipCause":"",
+            "startTime":"",
+            "status":"",
+            "totalDuration":"",
+            "tsiFile":"",
+            "txMos":"",
+            "uniqueId":""
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|      参数      |   类型   |                 描述                 |
+| :----------: | :----: | :--------------------------------: |
+| calleeNumber | String |                客户电话                |
+|  agentName   | Stirng |                座席名称                |
+|     cno      | String |                座席工号                |
+|     clid     | String |                外显号码                |
+|  startTime   | String |    呼叫客户时间，格式yyyy-MM-dd hh:mm:ss    |
+|  answerTime  | String |    客户接听时间，格式yyyy-MM-dd hh:mm:ss    |
+|   endTime    | String |     结束时间，格式yyyy-MM-dd hh:mm:ss     |
+|   callType   | String |                呼叫类型                |
+|    status    | String |                呼叫结果                |
+|   sipCause   | String |                呼叫情况                |
+|     file     | String |     文件名，recordFile字段对象的file字段      |
+| recordFormat |  Int   | 录音格式，recordFile字段对象的recordFormat字段 |
+|    title     | String |    录音标题，recordFile字段对象的title字段     |
+|   tsiFile    | String |                彩铃试听                |
+|    callId    | String |               CALLID               |
+
+##### 2.2 外呼通话IVR详情
+
+- URL:/api/record/ob/ivrDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 外呼通话记录唯一id |
+|  startDate   |   必选   |    开始时间    |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   对象列表    |
+
+接口返回实例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "ivrName":"123",
+            "path":"",
+            "pathName":"",
+            "action":"播放",
+            "startTime":"2017-10-20 08:20:12", 
+            "endTime": "2017-10-20 09:20:12",
+            "pressKey":"4",
+            "pressTime":"2017-10-20 08:00:12"
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|    参数     |   类型   |                    描述                    |
+| :-------: | :----: | :--------------------------------------: |
+|  ivrName  | String |                  语音导航名称                  |
+|   path    | String |                    节点                    |
+| pathName  | String |                   节点名称                   |
+|  action   |  Int   | 节点类型；1：播放，2：选择，3：留言，4：队列，5：时间，6：地区，7：传真，8：设置变量，9：收号节点，10：等待节点，11：判断节点，12：curl，13：直呼节点，14：数据库，15：会议，16：分支节点Switch |
+| startTime | String |       开始时间，格式为yyyy-MM-dd hh:mm:ss        |
+|  endTime  | String |       结束时间，格式为yyyy-MM-dd hh:mm:ss        |
+| pressKey  | String |                    按键                    |
+| pressTime | String |       按键时间，格式为yyyy-MM-dd hh:mm:ss        |
+
+##### 3. WebCall通话记录
+
+- URL:/api/record/webcall
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                    描述                    |
+| :------------: | :--: | :----: | :--------------------------------------: |
+|   tenancyId    |  必选  | String |                  所属企业id                  |
+| organizationId |  必选  | String |                  所属机构id                  |
+|  departmentId  |  必选  | String |                  所属部门id                  |
+|    callType    | 非必选  |  Int   |       呼叫类型，默认全部，0：全部，1：预览外呼，2：主叫外呼       |
+|     status     | 非必选  |  Int   | 接听状态，默认全部 ，0：全部，1：双方接听，2：座席接听，3：座席未接听，4：客户未接听 |
+|     title      | 非必选  | String | 查询条件，默认客户电话，customer_number：客户电话，cno：座席工号，agent_name：座席姓名，agent_number：座席电话，qno：队列号，clid：客户外显号码 |
+|  vadRateBegin  | 非必选  | Float  |                 通话占比起始值                  |
+|   vadRateEnd   | 非必选  | Float  |                 通话占比终止值                  |
+| vadCountBegin  | 非必选  | Float  |                 通话质量起始值                  |
+|  vadCountEnd   | 非必选  | Float  |                 通话质量终止值                  |
+|   showFileds   |  必选  | string |           调用showFileds接口获取显示字段           |
+|   startDate    |  必选  | string |                   开始时间                   |
+|    endDate     |  必选  | string |                   结束时间                   |
+|     start      | 非必选  | String |                当前页码,默认第一页                |
+|     limit      | 非必选  | String |               每页记录数，默认每页十条               |
+|   searchDate   | 非必选  | String |          查询日期，0：今天，-1：昨天，-29：一月          |
+|     export     | 非必选  |  int   |      100：导出本页，200：导出全部，若导出返回导出文件url      |
+
+接口返回：
+
+|   参数   |   类型   |      描述       |
+| :----: | :----: | :-----------: |
+| status |  int   |      状态码      |
+|  msg   | String |   状态说明，例如成功   |
+| result | array  | WebCall通话记录列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": {
+    	[
+            {
+            "id":"1",
+            "agentAreaCode":"",
+            "agentCrmId":"",
+            "agentName":"",
+            "amd":"",
+            "answerTime":"",
+            "bridgeDuration":"",
+            "bridgeDurationInt":"",
+            "bridgeTime":"",
+            "callId":"",
+            "callType":"",
+            "callTypeInt":"",
+            "calleeCno":"",
+            "calleeExten":"",
+            "calleeNumber":"",
+            "clid":"",
+            "comment":"",
+            "consult":"",
+            "createTime":"",
+            "customerAreaCode":"",
+            "customerCity":"",
+            "customerNumber":"",
+            "customerNumberType":"",
+            "customerProvince":"",
+            "customerVip":"",
+            "endReason":"",
+            "endTime":"",
+            "gwIp":"",
+            "interact":"",
+            "investigation":"",
+            "ivrFlow":"",
+            "ivrId":"",
+            "ivrName":"",
+            "ivrRouterId":"",
+            "joinQueueTime":"",
+            "obRemember":"",
+            "qno":"",
+            "recordFile":[
+                    {
+                    "file":"file-in",
+                    "title":"客户侧",
+                    "recordFormat":"1",
+                    }
+            ],
+            "rxMos":"",
+            "sipCause":"",
+            "startTime":"",
+            "status":"",
+            "statusTitle":"",
+            "taskName":"",
+            "threeway":"",
+            "totalDuration":"",
+            "transfer":"",
+            "txMos":"",
+            "uniqueId":"",
+            "uniqueIdTime":"",
+            "userField":"",
+            "vadCount":"",
+            "vadIn":"",
+            "vadOut":"",
+            "voiceCount":"",
+            "voicemailId":""
+            }   
+        ],
+        "callType":"0",
+    	"status":"0",
+    	"title":"客户电话",
+    	"value":"",
+    	"startDate":"2017-10-12 00:00:00",
+    	"endDate":"2017-10-29 12:23:23",
+    	"searchDate":"-1",
+    	"showFileds":""
+    }
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+
+
+|        参数        |   类型   |                    描述                    |
+| :--------------: | :----: | :--------------------------------------: |
+|  customerNumber  | String |                   客户电话                   |
+| customerProvince | String |                 队列号/IVR名                 |
+|       cno        | String |                   座席工号                   |
+|    queueName     | Stirng |                   座席姓名                   |
+|   calleeNumber   | String |                   座席电话                   |
+|       clid       | String |                   外显号码                   |
+|    startTime     | String |       进入系统时间，格式yyyy-MM-dd hh:mm:ss       |
+|    answerTime    | String |        接听时间，格式yyyy-MM-dd hh:mm:ss        |
+|      status      |  Int   | 接听状态,20:TTS合成失败，21：客户未接听，22：客户接听，23：已呼叫，24：双方接听，40：客户未接听，41：客户接听，42：已呼叫，43：双方接听 |
+|  bridgeDuration  | String |             通话时长，格式 hh:mm:ss             |
+|  totalDuration   | String |             总时长，格式 hh:mm:ss              |
+|      vadOut      | Float  |                  客户通话占比                  |
+|      vadIn       | Float  |                  座席通话占比                  |
+|     vadCount     | Float  |                   通话质量                   |
+|     callType     |  Int   |          呼叫类型，2：webcall，5：预测外呼           |
+|       file       | String |        文件名，recordFile字段对象的file字段         |
+|   recordFormat   |  Int   |    录音格式，recordFile字段对象的recordFormat字段    |
+|      title       | String |       录音标题，recordFile字段对象的title字段        |
+|    endReason     | String |                   客户挂机                   |
+|     sipCause     | String |                   呼叫情况                   |
+|     comment      | String |                    备注                    |
+|    userField     | String |                  自定义字段                   |
+|      callId      | String |                  CALLID                  |
+|     uniqueId     | String |             WebCall通话记录唯一id              |
+
+##### 3.1 WebCall通话详情
+
+- URL:/api/record/webcall/detail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |       描述        |
+| :----------: | :----: | :-------------: |
+|   uniqueId   | String | WebCall通话记录唯一id |
+|  startDate   | String |      开始时间       |
+| departmentId | String |     所属部门id      |
+
+接口返回说明：
+
+|   参数   |   类型   |      描述       |
+| :----: | :----: | :-----------: |
+| status |  int   |      状态码      |
+|  msg   | String |   状态说明，例如成功   |
+| result | array  | WebCall通话详情列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "id":"1",
+            "agentName":"",
+            "answerTime":"",
+            "callType":"",
+            "calleeNumber":"",
+            "callid":"",
+            "clid":"",
+            "cno":"",
+            "createTime":"",
+            "endReason":"",
+            "endTime":"",
+            "exten":"",
+            "gwIp":"",
+            "ibRemember":"",
+            "ivrFlow":"",
+            "ivrId":"",
+            "ivrName":"",
+            "mainCallType":"",
+            "mainUniqueId":"",
+            "mainUniqueIdTime":"",
+            "recordFile":[
+                    {
+                    "file":"file-in",
+                    "title":"客户侧",
+                    "recordFormat":"1",
+                    }
+            ],
+            "rxMos":"",
+            "sipCause":"",
+            "startTime":"",
+            "status":"",
+            "totalDuration":"",
+            "tsiFile":"",
+            "txMos":"",
+            "uniqueId":""
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+WebCall通话记录详情对象字段说明：
+
+|      参数      |   类型   |                    描述                    |
+| :----------: | :----: | :--------------------------------------: |
+| calleeNumber | String |                   电话号码                   |
+|  agentName   | Stirng |                   座席名称                   |
+|     cno      | String |                   座席工号                   |
+|     clid     | String |                   外显号码                   |
+|  startTime   | String |       座席接听时间，格式yyyy-MM-dd hh:mm:ss       |
+|  answerTime  | String |       客户接听时间，格式yyyy-MM-dd hh:mm:ss       |
+|   endTime    | String |        结束时间，格式yyyy-MM-dd hh:mm:ss        |
+|   callType   |  Int   | 呼叫类型，201：呼转座席，202：转移，203：咨询，104：三方，105：监听，106：耳语，107：强插(拦截)，208：呼转客户，209：呼转电话，210：呼转分机 |
+|    status    |  Int   |             呼叫结果，1：呼叫失败，2：接听             |
+|   sipCause   | String |                   呼叫情况                   |
+|    callId    | String |                  CALLID                  |
+
+##### 3.2 WebCall IVR详情
+
+- URL:/api/record/webcall/ivrDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 外呼通话记录唯一id |
+|  startDate   |   必选   |    开始时间    |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   对象列表    |
+
+接口返回实例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "ivrName":"123",
+            "path":"",
+            "pathName":"",
+            "action":"播放",
+            "startTime":"2017-10-20 08:20:12", 
+            "endTime": "2017-10-20 09:20:12",
+            "pressKey":"4",
+            "pressTime":"2017-10-20 08:00:12"
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|    参数     |   类型   |                    描述                    |
+| :-------: | :----: | :--------------------------------------: |
+|  ivrName  | String |                  语音导航名称                  |
+|   path    | String |                    节点                    |
+| pathName  | String |                   节点名称                   |
+|  action   |  Int   | 节点类型；1：播放，2：选择，3：留言，4：队列，5：时间，6：地区，7：传真，8：设置变量，9：收号节点，10：等待节点，11：判断节点，12：curl，13：直呼节点，14：数据库，15：会议，16：分支节点Switch |
+| startTime | String |       开始时间，格式为yyyy-MM-dd hh:mm:ss        |
+|  endTime  | String |       结束时间，格式为yyyy-MM-dd hh:mm:ss        |
+| pressKey  | String |                    按键                    |
+| pressTime | String |       按键时间，格式为yyyy-MM-dd hh:mm:ss        |
+
+##### 4. 预测外呼通话记录
+
+- URL:/api/record/predictive
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                    描述                    |
+| :------------: | :--: | :----: | :--------------------------------------: |
+|   tenancyId    |  必选  | String |                  所属企业id                  |
+| organizationId |  必选  | String |                  所属机构id                  |
+|  departmentId  |  必选  | String |                  所属部门id                  |
+|    callTask    | 非必选  |  Int   |                   任务选择                   |
+|     status     | 非必选  |  Int   | 接听状态，默认全部 ，0：全部，1：双方接听，2：座席接听，3：座席未接听，4：客户未接听 |
+|     title      | 非必选  | String | 查询条件，默认客户电话，customer_number：客户电话，cno：座席工号，agent_name：座席姓名，agent_number：座席电话，clid：客户外显号码 |
+|  vadRateBegin  | 非必选  | Float  |                 通话占比起始值                  |
+|   vadRateEnd   | 非必选  | Float  |                 通话占比终止值                  |
+| vadCountBegin  | 非必选  | Float  |                 通话质量起始值                  |
+|  vadCountEnd   | 非必选  | Float  |                 通话质量终止值                  |
+|    province    | 非必选  | String |                 调用获取省接口                  |
+|      city      | 非必选  | string |                 调用获取地区接口                 |
+|   showFileds   |  必选  | string |           调用showFileds接口获取显示字段           |
+|   startDate    |  必选  | string |                   开始时间                   |
+|    endDate     |  必选  | string |                   结束时间                   |
+|     start      | 非必选  | String |                当前页码,默认第一页                |
+|     limit      | 非必选  | String |               每页记录数，默认每页十条               |
+|   searchDate   | 非必选  | String |          查询日期，0：今天，-1：昨天，-29：一月          |
+|     export     | 非必选  |  int   |      100：导出本页，200：导出全部，若导出返回导出文件url      |
+
+接口返回：
+
+|   参数   |   类型   |     描述     |
+| :----: | :----: | :--------: |
+| status |  int   |    状态码     |
+|  msg   | String | 状态说明，例如成功  |
+| result | array  | 预测外呼通话记录列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": {
+    	[
+        	{
+                "id":"1",
+                "agentAreaCode":"",
+                "agentCrmId":"",
+                "agentName":"",
+                "amd":"",
+                "answerTime":"",
+                "bridgeDuration":"",
+                "bridgeDurationInt":"",
+                "bridgeTime":"",
+                "callId":"",
+                "callType":"",
+                "callTypeInt":"",
+                "calleeCno":"",
+                "calleeExten":"",
+                "calleeNumber":"",
+                "clid":"",
+                "comment":"",
+                "consult":"",
+                "createTime":"",
+                "customerAreaCode":"",
+                "customerCity":"",
+                "customerNumber":"",
+                "customerNumberType":"",
+                "customerProvince":"",
+                "customerVip":"",
+                "endReason":"",
+                "endTime":"",
+                "gwIp":"",
+                "id":"",
+                "interact":"",
+                "investigation":"",
+                "ivrFlow":"",
+                "ivrId":"",
+                "ivrName":"",
+                "ivrRouterId":"",
+                "joinQueueTime":"",
+                "obRemember":"",
+                "qno":"",
+                "recordFile":[
+                    {
+                        "file":"file-in",
+                        "title":"客户侧",
+                        "recordFormat":"1",
+                    }
+            	],
+                "rxMos":"",
+                "sipCause":"",
+                "startTime":"",
+                "status":"",
+                "statusTitle":"",
+                "taskName":"",
+                "threeway":"",
+                "totalDuration":"",
+                "transfer":"",
+                "txMos":"",
+                "uniqueId":"",
+                "uniqueIdTime":"",
+                "userField":"",
+                "vadCount":"",
+                "vadIn":"",
+                "vadOut":"",
+                "voiceCount":"",
+                "voicemailId":""
+           	  }   
+   		],
+   		"callType":"0",
+    	"status":"0",
+    	"title":"客户电话",
+    	"value":"",
+    	"startDate":"2017-10-12 00:00:00",
+    	"endDate":"2017-10-29 12:23:23",
+    	"searchDate":"-1",
+    	"showFileds":""
+   	}
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|        参数        |   类型   |                 描述                 |
+| :--------------: | :----: | :--------------------------------: |
+|  customerNumber  | String |                客户电话                |
+| customerProvince | String |              队列号/IVR号              |
+|       cno        | String |                座席工号                |
+|    queueName     | Stirng |                座席姓名                |
+|   agentNumber    | String |                座席电话                |
+|       clid       | String |                外显号码                |
+|    startTime     | String |    进入系统时间，格式yyyy-MM-dd hh:mm:ss    |
+|    answerTime    | String |     接听时间，格式yyyy-MM-dd hh:mm:ss     |
+|  bridgeDuration  | String |          通话时长，格式 hh:mm:ss          |
+|  totalDuration   | String |          总时长，格式 hh:mm:ss           |
+|      vadOut      | Float  |               客户通话占比               |
+|      vadIn       | Float  |               座席通话占比               |
+|     vadCount     | Float  |                通话质量                |
+|     callType     | String |      呼叫类型,0：全部，1：预览外呼，2：主叫外呼       |
+|      status      | String |                外呼任务                |
+|       file       | String |     文件名，recordFile字段对象的file字段      |
+|   recordFormat   |  Int   | 录音格式，recordFile字段对象的recordFormat字段 |
+|      title       | String |    录音标题，recordFile字段对象的title字段     |
+|    endReason     | String |                客户挂机                |
+|     sipCause     | String |                呼叫情况                |
+|     comment      | String |                 备注                 |
+|    userField     | String |               自定义字段                |
+|     uniqueId     | String |            预测外呼通话记录唯一id            |
+
+##### 4.1 预测外呼通话详情
+
+- URL:/api/record/predictive/detail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |       描述        |
+| :----------: | :----: | :-------------: |
+|   uniqueId   | String | WebCall通话记录唯一id |
+|  startDate   | String |      开始时间       |
+| departmentId | String |     所属部门id      |
+
+接口返回说明：
+
+|   参数   |   类型   |     描述     |
+| :----: | :----: | :--------: |
+| status |  int   |    状态码     |
+|  msg   | String | 状态说明，例如成功  |
+| result | array  | 预测外呼通话详情列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "id":"1",
+            "agentName":"",
+            "answerTime":"",
+            "callType":"",
+            "calleeNumber":"",
+            "callid":"",
+            "clid":"",
+            "cno":"",
+            "createTime":"",
+            "endReason":"",
+            "endTime":"",
+            "exten":"",
+            "gwIp":"",
+            "ibRemember":"",
+            "ivrFlow":"",
+            "ivrId":"",
+            "ivrName":"",
+            "mainCallType":"",
+            "mainUniqueId":"",
+            "mainUniqueIdTime":"",
+            "recordFile":[
+                    {
+                    "file":"file-in",
+                    "title":"客户侧",
+                    "recordFormat":"1",
+                    }
+            ],
+            "rxMos":"",
+            "sipCause":"",
+            "startTime":"",
+            "status":"",
+            "totalDuration":"",
+            "tsiFile":"",
+            "txMos":"",
+            "uniqueId":""
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+预测外呼通话记录详情对象字段说明：
+
+|      参数      |   类型   |                 描述                 |
+| :----------: | :----: | :--------------------------------: |
+| calleeNumber | String |                客户电话                |
+|  agentName   | Stirng |                座席名称                |
+|     cno      | String |                座席工号                |
+|     clid     | String |                外显号码                |
+|  startTime   | String |    座席接听时间，格式yyyy-MM-dd hh:mm:ss    |
+|  answerTime  | String |    客户接听时间，格式yyyy-MM-dd hh:mm:ss    |
+|   endTime    | String |     结束时间，格式yyyy-MM-dd hh:mm:ss     |
+|   callType   | String |                呼叫类型                |
+|    status    | String |                呼叫结果                |
+|   sipCause   | String |                呼叫情况                |
+|     file     | String |     文件名，recordFile字段对象的file字段      |
+| recordFormat |  Int   | 录音格式，recordFile字段对象的recordFormat字段 |
+|    title     | String |    录音标题，recordFile字段对象的title字段     |
+
+##### 4.2 预测外呼IVR详情
+
+- URL:/api/record/webcall/ivrDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 外呼通话记录唯一id |
+|  startDate   |   必选   |    开始时间    |
+| departmentId | String |   所属部门id   |
+
+接口返回实例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+ 	  	   "ivrName":"123",
+            "path":"",
+            "pathName":"",
+            "action":"播放",
+            "startTime":"2017-10-20 08:20:12", 
+            "endTime": "2017-10-20 09:20:12",
+            "pressKey":"4",
+            "pressTime":"2017-10-20 08:00:12"
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|    参数     |   类型   |                    描述                    |
+| :-------: | :----: | :--------------------------------------: |
+|  ivrName  | String |                  语音导航名称                  |
+|   path    | String |                    节点                    |
+| pathName  | String |                   节点名称                   |
+|  action   |  Int   | 节点类型；1：播放，2：选择，3：留言，4：队列，5：时间，6：地区，7：传真，8：设置变量，9：收号节点，10：等待节点，11：判断节点，12：curl，13：直呼节点，14：数据库，15：会议，16：分支节点Switch |
+| startTime | String |       开始时间，格式为yyyy-MM-dd hh:mm:ss        |
+|  endTime  | String |       结束时间，格式为yyyy-MM-dd hh:mm:ss        |
+| pressKey  | String |                    按键                    |
+| pressTime | String |       按键时间，格式为yyyy-MM-dd hh:mm:ss        |
+
+##### 
+
