@@ -25,6 +25,18 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.来电通话记录](#1-来电通话记录)
 
+[&emsp;&emsp;&emsp;&emsp;1.1answerTypes接口说明](#11-answerTypes接口说明)
+
+[&emsp;&emsp;&emsp;&emsp;1.2省接口说明](#12-省接口说明)
+
+[&emsp;&emsp;&emsp;&emsp;1.3市接口说明](#13-市接口说明)
+
+[&emsp;&emsp;&emsp;&emsp;1.4showFileds接口说明](#14-showFileds接口说明)
+
+[&emsp;&emsp;&emsp;&emsp;1.5来电通话详情接口](#15-来电通话详情接口)
+
+[&emsp;&emsp;&emsp;&emsp;1.6IVR详情接口](#16-IVR详情接口)
+
 ### 交互数据结构
 
 数据为json格式
@@ -243,13 +255,13 @@
 
     输入参数：
 
-  |     参数      |   类型   |               描述               |
-  | :---------: | :----: | :----------------------------: |
-  |  tenancyId  | String |              企业id              |
-  | accountName | String |              账户名称              |
-  |  billDate   | String |               账期               |
-  |  statusStr  | String |               状态               |
-  |   export    |  int   | 100：导出本页，200：导出全部，若导出返回导出文件url |
+|     参数      |   类型   |               描述               |
+| :---------: | :----: | :----------------------------: |
+|  tenancyId  | String |              企业id              |
+| accountName | String |              账户名称              |
+|  billDate   | String |               账期               |
+|  statusStr  | String |               状态               |
+|   export    |  int   | 100：导出本页，200：导出全部，若导出返回导出文件url |
 
 - tenancyDetail接口返回：
 
@@ -589,7 +601,7 @@ smsFee（短信对象）对象也是Fee对象。
 | ACCBFDiscount  | Float  |           减免金额，账户对象的discount字段           |
 | ACCBFRealCost  | Float  |           结算费用，账户对象的realCost字段           |
 
-##### 2. 机构账单
+##### 2 机构账单
 
 - URL:/api/bill/organization
 
@@ -647,7 +659,7 @@ smsFee（短信对象）对象也是Fee对象。
   |    deptCost    | Float  |          部门费用（元）           |
   |       操作       |   无    | 调用departmentDetail接口查看账单详情 |
 
-##### 2. 1 departmentDetail接口
+##### 2.1 departmentDetail接口
 
   - URL:/api/bill/organizationDetail
 
@@ -1144,4 +1156,289 @@ smsFee（短信对象）对象也是Fee对象。
 
 - 返回示例
 
-  ​
+  ```
+  {
+      "status": 0,
+      "msg": "成功",
+      "result": {
+          [
+              {
+                  "id":"1",
+                  "uniqueId":"1",
+                  "hotline":"89193631",
+                  "numberTrunk":"1",
+                  "customerNumber":"01089170766",
+                  "customerNumberType":"1",
+                  "customerAreaCode":"101",
+                  "customerProvince":"北京",
+                  "customerCity":"北京",
+                  "customerVip":"1",
+                  "calleeNumber":"123",
+                  "agentAreaCode":"101",
+                  "agentName":"小小",
+                  "agentCrmId":"145",
+                  "calleeCno":"123",
+                  "calleeExten":"321",
+                  "startTime":"2017-10-20 09:20:12",
+                  "answerTime"":"2017-10-20 09:20:12",
+                  "joinQueueTime":2017-10-20 09:20:12"",
+                  "bridgeTime":"2017-10-20 09:20:12",
+                  "endTime":"2017-10-20 09:20:12",
+                  "bridgeDuration":"1",
+                  "bridgeDurationInt":"1"
+                  "totalDuration":"1",
+                  "ivrId":"1",
+                  "ivrName":"2",
+                  "ivrFlow":"product",
+                  "qno":"1", 
+                  "queueName": "12",
+                  "recordFile":[
+                  	{
+                          "file":"file-in",
+                          "title":"客户侧",
+                          "recordFormat":"1",
+                  	}
+                  ],
+                  "voiceCount":"",
+                  "callType":"",
+                  "callTypeInt":"",
+                  "status":"",
+                  "statusTitle":"",
+                  "endReason":"",
+                  "gwIp":"",
+                  "consult":"",
+                  "transfer":"",
+                  "threeway":"",
+                  "interact":"",
+                  "voicemailId":"",
+                  "ivrRouterId":"",
+                  "obRemember":"",
+                  "investigation":"",
+                  "userField":"",
+                  "callId":"",
+                  "createTime":"",
+                  "uniqueIdTime":"",
+                  "comment":"",
+                  "voicemailName":"",
+                  "vadIn":"",
+                  "vadOut":"",
+                  "vadCount":""
+               }   
+          ],
+          "province":"湖南",
+          "city":"长沙",
+          "searchDate":"0",
+          "startDate":"2017-10-12 00:00:00",
+          "endDateStr":"2017-11-12 23:59:59",
+          "answerType":"0",
+          "answerTypeFlag":"0",
+          "showFileds":""
+      },
+      "currentPageNo":1,
+      "pageSize" : 1,
+      "totalCount" : 1
+  }
+  ```
+
+- 返回对象字段说明：
+
+  |       参数       |   类型   |                    描述                    |
+  | :------------: | :----: | :--------------------------------------: |
+  | customerNumber | String |                   客户号码                   |
+  |    hotline     | String |                   热线号码                   |
+  |    callType    | Stirng |               呼入类型，1：普通呼入                |
+  |    ivrName     | String |                   IVR                    |
+  |      qno       | String |                   队列号                    |
+  |   queueName    | String |                   队列名称                   |
+  |   calleeCno    | String |                   座席工号                   |
+  |   agentName    | String |                   座席姓名                   |
+  |  calleeNumber  | String |                   座席电话                   |
+  |   startTime    | String |       进入系统时间，格式yyyy-MM-dd hh:mm:ss       |
+  |   answerTime   | String |        接听时间，格式yyyy-MM-dd hh:mm:ss        |
+  | bridgeDuration | String |             通话时长，格式hh:mm:ss              |
+  |     status     | String | 接听状态,状态有座席接听，座席未接听，系统接听，系统未接听-IVR配置错误，系统未接听-停机，系统未接听-欠费，系统未接听-黑名单，系统未接听-未注册，系统未接听-彩铃，系统未接听-超限，系统未接听-应答前挂机，其他错误 |
+  |   endReason    | String |                   客户挂机                   |
+  | totalDuration  | String |              总时长，格式hh:mm:ss              |
+  |     index      | String |                   通话占比                   |
+  |    vadCount    | String |                   通话质量                   |
+  |      file      | String |        文件名，recordFile字段对象的file字段         |
+  |  recordFormat  |  Int   |    录音格式，recordFile字段对象的recordFormat字段    |
+  |     title      | String |       录音标题，recordFile字段对象的title字段        |
+  |    comment     | String |                    备注                    |
+  |   userField    | String |                  自定义字段                   |
+  |     callId     | String |                  CALLID                  |
+
+##### 1.1 answerTypes接口说明
+
+- URL:/api/record/answerTypes
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|  参数   |       要求        |   类型   | 描述                                       |
+| :---: | :-------------: | :----: | ---------------------------------------- |
+| 人工接听  | answerType为1时必选 | String | 咨询，转移，三方，ivr交互，直接电话，默认全部                 |
+| 人工未接听 | answerType为2时必选 | String | 全部                                       |
+| 系统应答  | answerType为3时必选 | String | 未进ivr，ivr中放弃，已进入留言，默认全部                  |
+| 系统未应答 | answerType为4时必选 |  Int   | 欠费，彩铃，未注册，停机，黑名单，ivr配置错误，超限，应答前挂机，其他，默认全部 |
+
+##### 1.2 省接口说明
+
+- URL:/api/record/province
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |    省列表    |
+
+省接口返回字段说明：
+
+|      参数       |   类型   |  描述  |
+| :-----------: | :----: | :--: |
+| provinceValue |  Int   | 省代号  |
+| provinceDesc  | String | 省名称  |
+
+##### 1.3 市接口说明
+
+- URL:/api/record/city
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|  参数   |   类型   |  描述  |
+| :---: | :----: | :--: |
+| value | String | 省代号  |
+
+市接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |    市列表    |
+
+##### 1.4 showFileds接口说明
+
+- URL:/api/record/showFileds
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|   参数   |   类型   |      描述      |
+| :----: | :----: | :----------: |
+| status |  int   |     状态码      |
+|  msg   | String |  状态说明，例如成功   |
+| result | array  | 来电记录显示字段实体数组 |
+
+字段说明：
+
+|     参数      |   类型   |   描述   |
+| :---------: | :----: | :----: |
+| filedsIndex |  Int   | 字段下标索引 |
+| filedsDesc  | String |  字段描述  |
+
+##### 1.5 来电通话详情接口
+
+- URL:/api/record/ib/ibDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 来电通话记录唯一id |
+|  startDate   | String |    开始时间    |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |     描述     |
+| :----: | :----: | :--------: |
+| status |  int   |    状态码     |
+|  msg   | String | 状态说明，例如成功  |
+| result | array  | 来电通话记录详情列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"id":"1",
+        	"uniqueId":"1",
+ 	  	   "agentName":""
+            "answerTime":""
+            "callId":""
+            "callType":""
+            "calleeNumber":""
+            "class":""
+            "clid":""
+            "cno":""
+            "createTime":""
+            "endReason":""
+            "endTime":""
+            "exten":""
+            "gwIp":""
+            "ibRemember":""
+            "ivrFlow":""
+            "ivrId":""
+            "ivrName":""
+            "mainCallType":""
+            "mainUniqueId":""
+            "mainUniqueIdTime":""
+            "recordFile":""
+            "sipCause":""
+            "startTime":""
+            "status":""
+            "totalDuration":""
+            "tsiFile":""
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+详情对象字段说明：
+
+|      参数      |   类型   |              描述              |
+| :----------: | :----: | :--------------------------: |
+| calleeNumber | String |             座席电话             |
+|  agentName   | Stirng |             座席名称             |
+|     cno      | String |             座席工号             |
+|  startTime   | String | 开始呼叫时间，格式yyyy-MM-dd hh:mm:ss |
+|  answerTime  | String |  接听时间，格式yyyy-MM-dd hh:mm:ss  |
+|   endTime    | String |  结束时间，格式yyyy-MM-dd hh:mm:ss  |
+|   callType   | String |   呼叫类型,0：全部，1：预览外呼，2：主叫外呼    |
+|    status    | String |             呼叫结果             |
+|   sipCause   | String |             呼叫情况             |
+|  ibRemember  | String |             主叫记忆             |
+|    callId    | String |            CALLID            |
+
+##### 1.6 IVR详情接口
+
+- URL:/api/record/ib/ivrDetail
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |     描述     |
+| :----------: | :----: | :--------: |
+|   uniqueId   | String | 来电通话记录唯一id |
+|  startDate   |   必选   |    开始时间    |
+| departmentId | String |   所属部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  ivr对象列表  |
