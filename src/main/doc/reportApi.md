@@ -13,7 +13,7 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.企业账单](#1-企业账单)
 
-[&emsp;&emsp;&emsp;&emsp;1.1tenancyDetail接口](#11-tenancydetail接口)[<br/>]
+[&emsp;&emsp;&emsp;&emsp;1.1tenancyDetail接口](#11-tenancydetail接口)<br/>
 
 [&emsp;&emsp;&emsp;&emsp;2.机构账单](#2-机构账单)
 
