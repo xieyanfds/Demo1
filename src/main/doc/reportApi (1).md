@@ -13,11 +13,11 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.企业账单](#1-企业账单)
 
-[&emsp;&emsp;&emsp;&emsp;11.tenancyDetail接口](#11-tenancyDetail接口)
+[&emsp;&emsp;&emsp;&emsp;1.1tenancyDetail接口](#11-tenancydetail接口)
 
 [&emsp;&emsp;&emsp;&emsp;2.机构账单](#2-机构账单)
 
-[&emsp;&emsp;&emsp;&emsp;2.1departmentDetail接口](#2-1departmentDetail接口)
+[&emsp;&emsp;&emsp;&emsp;2.1departmentDetail接口](#21-departmentdetail接口)
 
 [&emsp;&emsp;&emsp;&emsp;3.部门账单](#3-部门账单)
 
