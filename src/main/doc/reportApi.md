@@ -1333,7 +1333,7 @@ smsFee（短信对象）对象也是Fee对象。
 | 系统应答  | answerType为3时必选 | String | 未进ivr，ivr中放弃，已进入留言，默认全部                  |
 | 系统未应答 | answerType为4时必选 |  Int   | 欠费，彩铃，未注册，停机，黑名单，ivr配置错误，超限，应答前挂机，其他，默认全部 |
 
-##### 2 . 省接口说明
+##### 2. 省接口说明
 
 - URL:/api/record/province
 - Method:GET
