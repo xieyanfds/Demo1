@@ -79,7 +79,7 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.1座席列表接口](#11-座席列表接口)
 
-[&emsp;&emsp;&emsp;&emsp;1.2字段列表接口](#12-字段列表接口)
+[&emsp;&emsp;&emsp;&emsp;1.2座席字段接口](#12-座席字段接口)
 
 [&emsp;&emsp;&emsp;&emsp;2.工作日志](#2-工作日志)
 
@@ -3529,7 +3529,7 @@ WebCall通话记录详情对象字段说明：
 |   startHour    | 非必选  | Float  |                 统计时段起始值                  |
 |    endHour     | 非必选  | Float  |                 统计时段终止值                  |
 |      cnos      | 非必选  | String |     选择的座席，传递时用逗号连接的座席下标索引，通过座席列表接口获得     |
-|     fields     | 非必选  | String |    要输出的字段，传递时使用逗号连接的字段下标索引，通过字段列表接口获得    |
+|     fields     | 非必选  | String |    要输出的字段，传递时使用逗号连接的字段下标索引，通过座席字段接口获得    |
 |     event      | 非必选  | String | 动作，例：login:登录，loginout：退出，pause：置忙，unpause：置闲  ，changeBindTel：修改绑定电话，hold：保持，unhold：保持接回，wrapupStart：整理开始，wrapupEnd：整理结束，mute：结束，refuse：拒接，consult：咨询，consultCancel：咨询取消，consultThreeway：咨询三方，consultTransfer：咨询转移，unconsult：咨询接回，transfer：转移，previewOutcall：预览外呼，previewOutcallCancel：预览外呼取消，interact：交互，investigation：满意度调查，unlink：挂断，disconnect：强拆，spy：监听，unspy：监听接回，threeway：三方，unthreeway：三方接回，whisper：耳语，unwhisper：耳语接回，barge：强拆，pickup：抢线，verifyTel：电话验证 |
 |     export     | 非必选  |  int   |      100：导出本页，200：导出全部，若导出返回导出文件url      |
 |     start      | 非必选  | String |                当前页码,默认第一页                |
