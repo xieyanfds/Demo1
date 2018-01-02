@@ -3596,8 +3596,8 @@ WebCall通话记录详情对象字段说明：
 | splitTimeType  | 非必选  |  Int   |  分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示   |
 |   startHour    | 非必选  | Float  |               统计时段起始值                |
 |    endHour     | 非必选  | Float  |               统计时段终止值                |
-|      cnos      | 非必选  | String |     选择的座席，传递时用逗号连接的座席下标索引，通过座席列表接口获得     |
-|     fields     | 非必选  | String |    要输出的字段，传递时使用逗号连接的字段下标索引，通过座席字段接口获得    |
+|      cnos      | 非必选  | String |   选择的座席，传递时用逗号连接的座席下标索引，通过座席列表接口获得   |
+|     fields     | 非必选  | String |  要输出的字段，传递时使用逗号连接的字段下标索引，通过座席字段接口获得  |
 |     export     | 非必选  |  int   |    100：导出本页，200：导出全部，若导出返回导出文件url    |
 |     start      | 非必选  | String |              当前页码,默认第一页              |
 |     limit      | 非必选  | string |             每页记录数，默认10条              |
@@ -3842,7 +3842,7 @@ WebCall通话记录详情对象字段说明：
             "strategy":"",
             "vipSupport":"",
             "weight":"",
-            "wrapupTime":"",
+            "wrapupTime":""
         }   
     ],
     "currentPageNo":1,
@@ -3872,7 +3872,7 @@ WebCall通话记录详情对象字段说明：
 | :----: | :----: | :-------: |
 | status |  int   |    状态码    |
 |  msg   | String | 状态说明，例如成功 |
-| result | array  |   队列列表    |
+| result | array  |   字段列表    |
 
 接口返回示例：
 
@@ -3882,14 +3882,25 @@ WebCall通话记录详情对象字段说明：
     "msg": "成功",
     "result": [
         {
-            "nameForJava":"enterCount",
-            "nameForDb":"enter_count",
-            "desc":"总排队请求数",
-            "index":"1",
-            "parentIndex":"111",
-            "isBaseField":"true",
-            "isTotalStatisticsCan":"true"
-        }   
+        	"nameForJava":"collectType",
+            "nameForDb":"collect_type",
+            "desc":"汇总",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"enterCount",
+                    "nameForDb":"enter_count",
+                    "desc":"总排队请求数",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
     ],
     "currentPageNo":1,
     "pageSize" : 1,
@@ -3909,6 +3920,7 @@ WebCall通话记录详情对象字段说明：
 |     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
 |     isBaseField      | boolean |    是否是基础字段:默认为true     |
 | isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
 
 #### 中继报表
 
@@ -3979,7 +3991,7 @@ WebCall通话记录详情对象字段说明：
             "minBridgeTime":"",
             "avgBridgeTime":"",
             "ibAgentAnsweredTime":"",
-            "ibCustomerAnsweredTime":"",
+            "ibCustomerAnsweredTime":""
          }   
     ],
     "currentPageNo":1,
@@ -4031,7 +4043,51 @@ WebCall通话记录详情对象字段说明：
 - 输入参数：
 
 
+|      参数      |  要求  |   类型   |  描述  |
+| :----------: | :--: | :----: | :--: |
+| departmentId |  必选  | String | 部门id |
 
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  热线号码列表   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "id":"1",
+            "enterpriseId":"100001",
+            "hotline":"13891058",
+            "isMaster":"",
+            "areaCode":"101",
+            "numberTrunk":"",
+            "type":"",
+            "name":"",
+            "createTime":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|   参数    |   类型   |  描述  |
+| :-----: | :----: | :--: |
+|   id    |  int   | 热线id |
+| hotline | String | 热线号  |
+
+##### 
 
 
 ##### 1.2 来电队列字段接口
@@ -4042,6 +4098,62 @@ WebCall通话记录详情对象字段说明：
 - 输入参数：
 
 
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   字段列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"nameForJava":"collectType",
+            "nameForDb":"collect_type",
+            "desc":"汇总",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"ibTotalCount",
+                    "nameForDb":"ib_total_count",
+                    "desc":"总来电数",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+
+```
+
+对象字段说明：
+
+|          参数          |   类型    |           描述           |
+| :------------------: | :-----: | :--------------------: |
+|     nameForJava      | String  |       字段名字：驼峰命名        |
+|      nameForDb       | String  |     字段名字：多个单词用_分隔      |
+|         desc         | String  |          字段描述          |
+|        index         |   int   |         字段下标索引         |
+|     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
+|     isBaseField      | boolean |    是否是基础字段:默认为true     |
+| isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
+
 
 ##### 2. 地区分析
 
@@ -4051,6 +4163,64 @@ WebCall通话记录详情对象字段说明：
 - 输入参数：
 
 
+|       参数       |  要求  |   类型   |                   描述                    |
+| :------------: | :--: | :----: | :-------------------------------------: |
+|   tenancyId    |  必选  | String |                 所属企业id                  |
+| organizationId |  必选  | String |                 所属机构id                  |
+|  departmentId  |  必选  | String |                 所属部门id                  |
+|      type      | 非必选  |  Int   |  报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段   |
+|   startTime    |  必选  | string |                  开始时间                   |
+|    endTime     |  必选  | string |                  结束时间                   |
+| splitTimeType  | 非必选  |  Int   |    分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示    |
+|   startHour    | 非必选  | Float  |                 统计时段起始值                 |
+|    endHour     | 非必选  | Float  |                 统计时段终止值                 |
+|    hotlines    | 非必选  | String | 统计的热线号码字符串，传递时用逗号连接的热线号码索引，通过来电热线列表接口获得 |
+|     fields     | 非必选  | String |  要输出的字段，传递时使用逗号连接的字段下标索引，通过地区队列字段接口获得   |
+|     export     | 非必选  |  int   |     100：导出本页，200：导出全部，若导出返回导出文件url      |
+|     start      | 非必选  | String |               当前页码,默认第一页                |
+|     limit      | 非必选  | string |               每页记录数，默认10条               |
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  地区分析列表   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "all":"",
+            "province":"",
+            "city":"",
+            "ibTotal":"",
+            "proporation":""
+         }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+
+
+|     参数      |   类型   |  描述  |
+| :---------: | :----: | :--: |
+|     all     | String |  全部  |
+|  province   | String |  省份  |
+|    city     | String |  城市  |
+|   ibTotal   | String | 来电数  |
+| proporation | String |  比例  |
+
 
 ##### 2.1 地区队列字段接口
 
@@ -4058,3 +4228,61 @@ WebCall通话记录详情对象字段说明：
 - Method:GET
 - Content type: application/json
 - 输入参数：
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   字段列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"nameForJava":"all",
+            "nameForDb":"all",
+            "desc":"全部",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"province",
+                    "nameForDb":"province",
+                    "desc":"省份",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+
+```
+
+对象字段说明：
+
+|          参数          |   类型    |           描述           |
+| :------------------: | :-----: | :--------------------: |
+|     nameForJava      | String  |       字段名字：驼峰命名        |
+|      nameForDb       | String  |     字段名字：多个单词用_分隔      |
+|         desc         | String  |          字段描述          |
+|        index         |   int   |         字段下标索引         |
+|     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
+|     isBaseField      | boolean |    是否是基础字段:默认为true     |
+| isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
+
+##### 
