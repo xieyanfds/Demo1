@@ -105,7 +105,7 @@
 
 [&emsp;&emsp;满意度报表](#满意度报表)
 
-[&emsp;&emsp;&emsp;&emsp;1.按坐席统计](#1-按座席统计)
+[&emsp;&emsp;&emsp;&emsp;1.按坐席统计](#1-按坐席统计)
 
 [&emsp;&emsp;&emsp;&emsp;1.1满意度字段接口](#11-满意度字段接口)
 
@@ -117,9 +117,9 @@
 
 [&emsp;&emsp;&emsp;&emsp;1.1预览外呼字段接口](#11-预览外呼字段接口)
 
-[&emsp;&emsp;&emsp;&emsp;2.WebCall报表](#2-WebCall报表)
+[&emsp;&emsp;&emsp;&emsp;2.WebCall报表](#2-webcall报表)
 
-[&emsp;&emsp;&emsp;&emsp;2.1按坐席统计](#21-WebCall字段接口)
+[&emsp;&emsp;&emsp;&emsp;2.1按坐席统计](#21-webcall字段接口)
 
 [&emsp;&emsp;&emsp;&emsp;3.预测外呼坐席报表](#3-预测外呼座席报表)
 
