@@ -103,6 +103,60 @@
 
 [&emsp;&emsp;&emsp;&emsp;2.1地区队列字段接口](#21-地区队列字段接口)
 
+[&emsp;&emsp;满意度报表](#满意度报表)
+
+[&emsp;&emsp;&emsp;&emsp;1.按坐席统计](#1-按座席统计)
+
+[&emsp;&emsp;&emsp;&emsp;1.1满意度字段接口](#11-满意度字段接口)
+
+[&emsp;&emsp;&emsp;&emsp;2.按热线号码统计](#2-按热线号码统计)
+
+[&emsp;&emsp;外呼报表](#外呼报表)
+
+[&emsp;&emsp;&emsp;&emsp;1.预览外呼报表](#1-预览外呼报表)
+
+[&emsp;&emsp;&emsp;&emsp;1.1预览外呼字段接口](#11-预览外呼字段接口)
+
+[&emsp;&emsp;&emsp;&emsp;2.WebCall报表](#2-WebCall报表)
+
+[&emsp;&emsp;&emsp;&emsp;2.1按坐席统计](#21-WebCall字段接口)
+
+[&emsp;&emsp;&emsp;&emsp;3.预测外呼坐席报表](#3-预测外呼座席报表)
+
+[&emsp;&emsp;&emsp;&emsp;3.1预览外呼座席字段接口](#31-预览外呼座席字段接口)
+
+[&emsp;&emsp;&emsp;&emsp;3.2任务列表接口](#32-任务列表接口)
+
+[&emsp;&emsp;&emsp;&emsp;4.预测外呼任务报表](#4-预测外呼任务报表)
+
+[<br/>质检管理](#质检管理)
+
+[&emsp;&emsp;案例组管理](#案例组管理)
+
+[&emsp;&emsp;&emsp;&emsp;1.查看案例组列表](#1-查看案例组列表)
+
+[&emsp;&emsp;&emsp;&emsp;2.新增案例组](#2-新增案例组)
+
+[&emsp;&emsp;&emsp;&emsp;3.修改案例组](#3-修改案例组)
+
+[&emsp;&emsp;&emsp;&emsp;4.删除案例组](#4-删除案例组)
+
+[&emsp;&emsp;录音管理](#录音管理)
+
+[&emsp;&emsp;&emsp;&emsp;1.录音接口（试听或下载）](#1-录音接口（试听或下载）)
+
+[&emsp;&emsp;&emsp;&emsp;2.彩铃录音接口（试听或下载）](#2-彩铃录音接口（试听或下载）)
+
+[&emsp;&emsp;&emsp;&emsp;3.录音评分](#3-录音评分)
+
+[&emsp;&emsp;&emsp;&emsp;4.添加录音到案例库](#4-添加录音到案例库)
+
+[&emsp;&emsp;案例库管理](#案例库管理)
+
+[&emsp;&emsp;&emsp;&emsp;1.修改案例库](#1-修改案例库)
+
+[&emsp;&emsp;&emsp;&emsp;2.删除案例库](#2-删除案例库)
+
 ### 交互数据结构
 
 数据为json格式
@@ -4002,8 +4056,6 @@ WebCall通话记录详情对象字段说明：
 
 对象字段说明：
 
-
-
 |           参数            |   类型   |    描述    |
 | :---------------------: | :----: | :------: |
 |       collectType       | String |    汇总    |
@@ -4211,8 +4263,6 @@ WebCall通话记录详情对象字段说明：
 
 对象字段说明：
 
-
-
 |     参数      |   类型   |  描述  |
 | :---------: | :----: | :--: |
 |     all     | String |  全部  |
@@ -4284,5 +4334,1324 @@ WebCall通话记录详情对象字段说明：
 |     isBaseField      | boolean |    是否是基础字段:默认为true     |
 | isTotalStatisticsCan | boolean |        是否能统计合计         |
 |       children       |  字段对象   |         子节点对象          |
+
+#### 满意度报表
+
+##### 1. 按坐席统计
+
+- URL:/api/report/investigation/agent
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                  描述                  |
+| :------------: | :--: | :----: | :----------------------------------: |
+|   tenancyId    |  必选  | String |                所属企业id                |
+| organizationId |  必选  | String |                所属机构id                |
+|  departmentId  |  必选  | String |                所属部门id                |
+|      type      | 非必选  |  Int   | 报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段 |
+|   startTime    |  必选  | string |                 开始时间                 |
+|    endTime     |  必选  | string |                 结束时间                 |
+| splitTimeType  | 非必选  |  Int   |  分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示   |
+|   startHour    | 非必选  | Float  |               统计时段起始值                |
+|    endHour     | 非必选  | Float  |               统计时段终止值                |
+|      cnos      | 非必选  | String |   选择的座席，传递时用逗号连接的座席下标索引，通过座席列表接口获得   |
+|     fields     | 非必选  | String | 要输出的字段，传递时使用逗号连接的字段下标索引，通过满意度字段接口获得  |
+|     export     | 非必选  |  int   |    100：导出本页，200：导出全部，若导出返回导出文件url    |
+|     start      | 非必选  | String |              当前页码,默认第一页              |
+|     limit      | 非必选  | string |             每页记录数，默认10条              |
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   统计列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "callVolumeType":"",
+            "durationType":"",
+            "callTypeNode":"",
+            "totalCount":"",
+            "keyCount":"",
+            "abandonCount":"",
+            "totalInvestigationTime":"",
+            "minInvestigationTime":"",
+            "maxInvestigationTime":"",
+            "avgInvestigationTime":"",
+            "totalAbandonTime":"",
+            "minAbandonTime":"",
+            "maxAbandonTime":"",
+            "avgAbandonTime":"",
+            "keyValues":"",
+            "callType":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+满意度统计对象字段说明：
+
+|           参数           |   类型   |   描述   |
+| :--------------------: | :----: | :----: |
+|     callVolumeType     | String |  呼叫量   |
+|      durationType      | String |   时长   |
+|      callTypeNode      | String |  呼叫类型  |
+|       totalCount       | String |  调查总数  |
+|        keyCount        | String |  按键数   |
+|      abandonCount      | String |  放弃数   |
+| totalInvestigationTime | String | 总调查时长  |
+|  minInvestigationTime  | String | 最小调查时长 |
+|  maxInvestigationTime  | String | 最大调查时长 |
+|  avgInvestigationTime  | String | 平均调查时长 |
+|    totalAbandonTime    | String | 总放弃时长  |
+|     minAbandonTime     | String | 最小放弃时长 |
+|     maxAbandonTime     | String | 最大放弃时长 |
+|     avgAbandonTime     | String | 平均放弃时长 |
+|       keyValues        | String |  按键统计  |
+|        callType        | String |  呼叫类型  |
+
+##### 1.1 满意度字段接口
+
+- URL:/api/report/investigation/fieldInfo
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   字段列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"nameForJava":"callVolumeType",
+            "nameForDb":"call_volume_type",
+            "desc":"呼叫量",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"totalCount",
+                    "nameForDb":"total_count",
+                    "desc":"调查总数",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+
+
+```
+
+对象字段说明：
+
+|          参数          |   类型    |           描述           |
+| :------------------: | :-----: | :--------------------: |
+|     nameForJava      | String  |       字段名字：驼峰命名        |
+|      nameForDb       | String  |     字段名字：多个单词用_分隔      |
+|         desc         | String  |          字段描述          |
+|        index         |   int   |         字段下标索引         |
+|     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
+|     isBaseField      | boolean |    是否是基础字段:默认为true     |
+| isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
+
+##### 2. 按热线号码统计
+
+- URL:/api/report/investigation/hotline
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                   描述                    |
+| :------------: | :--: | :----: | :-------------------------------------: |
+|   tenancyId    |  必选  | String |                 所属企业id                  |
+| organizationId |  必选  | String |                 所属机构id                  |
+|  departmentId  |  必选  | String |                 所属部门id                  |
+|      type      | 非必选  |  Int   |  报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段   |
+|   startTime    |  必选  | string |                  开始时间                   |
+|    endTime     |  必选  | string |                  结束时间                   |
+| splitTimeType  | 非必选  |  Int   |    分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示    |
+|   startHour    | 非必选  | Float  |                 统计时段起始值                 |
+|    endHour     | 非必选  | Float  |                 统计时段终止值                 |
+|    hotlines    | 非必选  | String | 统计的热线号码字符串，传递时用逗号连接的热线号码索引，通过来电热线列表接口获得 |
+|     fields     | 非必选  | String |   要输出的字段，传递时使用逗号连接的字段下标索引，通过满意度字段接口获得   |
+|     export     | 非必选  |  int   |     100：导出本页，200：导出全部，若导出返回导出文件url      |
+|     start      | 非必选  | String |               当前页码,默认第一页                |
+|     limit      | 非必选  | string |               每页记录数，默认10条               |
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   统计列表    |
+
+
+
+#### 外呼报表
+
+##### 1. 预览外呼报表
+
+- URL:/api/report/ob/preview
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                  描述                  |
+| :------------: | :--: | :----: | :----------------------------------: |
+|   tenancyId    |  必选  | String |                所属企业id                |
+| organizationId |  必选  | String |                所属机构id                |
+|  departmentId  |  必选  | String |                所属部门id                |
+|      type      | 非必选  |  Int   | 报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段 |
+|   startTime    |  必选  | string |                 开始时间                 |
+|    endTime     |  必选  | string |                 结束时间                 |
+| splitTimeType  | 非必选  |  Int   |  分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示   |
+|   startHour    | 非必选  | Float  |               统计时段起始值                |
+|    endHour     | 非必选  | Float  |               统计时段终止值                |
+|      cnos      | 非必选  | String |   选择的座席，传递时用逗号连接的座席下标索引，通过座席列表接口获得   |
+|     fields     | 非必选  | String | 要输出的字段，传递时使用逗号连接的字段下标索引，通过预览外呼字段接口获得 |
+|     export     | 非必选  |  int   |    100：导出本页，200：导出全部，若导出返回导出文件url    |
+|     start      | 非必选  | String |              当前页码,默认第一页              |
+|     limit      | 非必选  | string |             每页记录数，默认10条              |
+
+接口返回：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  预测外呼列表   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "callVolumeType":"",
+            "durationType":"",
+            "percentage":"",
+            "totalCount":"",
+            "agentAnsweredCount":"",
+            "customerAnsweredCount":"",
+            "bothAnsweredCount":"",
+            "validCalls":"",
+            "totalBridgeTime":"",
+            "avgBridgeTime":"",
+            "maxBridgeTime":"",
+            "minBridgeTime":"",
+            "validTotalBridgeTime":"",
+            "validAvgBridgeTime":"",
+            "vadRate":"",
+            "agentRate":"",
+            "customerRate":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|          参数           |   类型   |     描述     |
+| :-------------------: | :----: | :--------: |
+|    callVolumeType     | String |    呼叫量     |
+|     durationType      | String |     时长     |
+|      percentage       | String |     比率     |
+|      totalCount       | String |    外呼总数    |
+|  agentAnsweredCount   | String |   座席接听数    |
+| customerAnsweredCount | String |   客户接听数    |
+|   bothAnsweredCount   | String |   双方接听数    |
+|      validCalls       | String |   有效通话次数   |
+|    totalBridgeTime    | String |   总通话时长    |
+|     avgBridgeTime     | String |   平均通话时长   |
+|     maxBridgeTime     | String |   最长通话时长   |
+|     minBridgeTime     | String |   最短通话时长   |
+| validTotalBridgeTime  | String | 有效通话总通话时长  |
+|  validAvgBridgeTime   | String | 有效通话平均通话时长 |
+|        vadRate        | String |    通话占比    |
+|       agentRate       | String |   座席接听率    |
+|     customerRate      | String |   客户接听率    |
+
+
+
+##### 1.1 预览外呼字段接口
+
+- URL:/api/report/ob/fieldInfoPreview
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   字段列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"nameForJava":"callVolumeType",
+            "nameForDb":"call_volume_type",
+            "desc":"呼叫量",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"totalCount",
+                    "nameForDb":"total_count",
+                    "desc":"外呼总数",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+
+
+```
+
+对象字段说明：
+
+|          参数          |   类型    |           描述           |
+| :------------------: | :-----: | :--------------------: |
+|     nameForJava      | String  |       字段名字：驼峰命名        |
+|      nameForDb       | String  |     字段名字：多个单词用_分隔      |
+|         desc         | String  |          字段描述          |
+|        index         |   int   |         字段下标索引         |
+|     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
+|     isBaseField      | boolean |    是否是基础字段:默认为true     |
+| isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
+
+##### 2. WebCall报表
+
+- URL:/api/report/ob/webcall
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                   描述                    |
+| :------------: | :--: | :----: | :-------------------------------------: |
+|   tenancyId    |  必选  | String |                 所属企业id                  |
+| organizationId |  必选  | String |                 所属机构id                  |
+|  departmentId  |  必选  | String |                 所属部门id                  |
+|      type      | 非必选  |  Int   |  报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段   |
+|   startTime    |  必选  | string |                  开始时间                   |
+|    endTime     |  必选  | string |                  结束时间                   |
+| splitTimeType  | 非必选  |  Int   |    分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示    |
+|   startHour    | 非必选  | Float  |                 统计时段起始值                 |
+|    endHour     | 非必选  | Float  |                 统计时段终止值                 |
+|      cnos      | 非必选  | String |    选择的座席，传递时用逗号连接的座席下标索引，通过座席列表接口获得     |
+|     fields     | 非必选  | String | 要输出的字段，传递时使用逗号连接的字段下标索引，通过WebCall字段接口获得 |
+|     export     | 非必选  |  int   |     100：导出本页，200：导出全部，若导出返回导出文件url      |
+|     start      | 非必选  | String |               当前页码,默认第一页                |
+|     limit      | 非必选  | string |               每页记录数，默认10条               |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | webcall列表 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "callVolumeType":"",
+            "durationType":"",
+            "percentage":"",
+            "totalCount":"",
+            "answeredCount":"",
+            "validCalls":"",
+            "totalBridgeTime":"",
+            "avgBridgeTime":"",
+            "maxBridgeTime":"",
+            "minBridgeTime":"",
+            "validTotalBridgeTime":"",
+            "validAvgBridgeTime":"",
+            "agentRate":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|          参数          |   类型   |     描述     |
+| :------------------: | :----: | :--------: |
+|    callVolumeType    | String |    呼叫量     |
+|     durationType     | String |     时长     |
+|      percentage      | String |     比率     |
+|      totalCount      | String |    呼叫总数    |
+|    answeredCount     | String |   座席接听数    |
+|      validCalls      | String |   有效通话次数   |
+|   totalBridgeTime    | String |   总通话时长    |
+|    avgBridgeTime     | String |   平均通话时长   |
+|    maxBridgeTime     | String |   最长通话时长   |
+|    minBridgeTime     | String |   最短通话时长   |
+| validTotalBridgeTime | String | 有效通话总通话时长  |
+|  validAvgBridgeTime  | String | 有效通话平均通话时长 |
+|      agentRate       | String |   座席接听率    |
+
+##### 2.1 WebCall字段接口
+
+- URL:/api/report/ob/fieldInfoWebcall
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   字段列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"nameForJava":"callVolumeType",
+            "nameForDb":"call_volume_type",
+            "desc":"呼叫量",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"totalCount",
+                    "nameForDb":"total_count",
+                    "desc":"呼叫总数",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+
+
+```
+
+对象字段说明：
+
+|          参数          |   类型    |           描述           |
+| :------------------: | :-----: | :--------------------: |
+|     nameForJava      | String  |       字段名字：驼峰命名        |
+|      nameForDb       | String  |     字段名字：多个单词用_分隔      |
+|         desc         | String  |          字段描述          |
+|        index         |   int   |         字段下标索引         |
+|     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
+|     isBaseField      | boolean |    是否是基础字段:默认为true     |
+| isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
+
+##### 3. 预测外呼座席报表
+
+- URL:/api/report/ob/agent
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                   描述                   |
+| :------------: | :--: | :----: | :------------------------------------: |
+|   tenancyId    |  必选  | String |                 所属企业id                 |
+| organizationId |  必选  | String |                 所属机构id                 |
+|  departmentId  |  必选  | String |                 所属部门id                 |
+|      type      | 非必选  |  Int   |  报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段  |
+|   startTime    |  必选  | string |                  开始时间                  |
+|    endTime     |  必选  | string |                  结束时间                  |
+| splitTimeType  | 非必选  |  Int   |   分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示    |
+|   startHour    | 非必选  | Float  |                统计时段起始值                 |
+|    endHour     | 非必选  | Float  |                统计时段终止值                 |
+|      tids      | 非必选  | String | 要统计的预览外呼任务，传递时用逗号连接的任务下标索引，通过任务列表接口获得  |
+|     fields     | 非必选  | String | 要输出的字段，传递时使用逗号连接的字段下标索引，通过预览外呼座席字段接口获得 |
+|     export     | 非必选  |  int   |     100：导出本页，200：导出全部，若导出返回导出文件url     |
+|     start      | 非必选  | String |               当前页码,默认第一页               |
+|     limit      | 非必选  | string |              每页记录数，默认10条               |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | 预测外呼座席列表  |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "task":"",
+            "cno":"",
+            "stateIdle":"",
+            "statePause":"",
+            "stateInuse":"",
+            "stateCalling":"",
+            "stateWrapup":"",
+            "utilization":"",
+            "calledCount":"",
+            "bridgeCount":"",
+            "answeredRate":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|      参数      |   类型   |   描述   |
+| :----------: | :----: | :----: |
+|   taskName   | String |  任务名称  |
+|     cno      | String |  座席工号  |
+|  stateIdle   | String | 空闲状态时长 |
+|  statePause  | String | 置忙状态时长 |
+|  stateInuse  | String | 通话状态时长 |
+| stateCalling | String | 呼叫状态时长 |
+| stateWrapup  | String | 整理状态时长 |
+| utilization  | String | 座席利用率  |
+| calledCount  | String |  已呼叫数  |
+| bridgeCount  | String |  接通数   |
+| answeredRate | String |  接通率   |
+
+##### 3.1 预览外呼座席字段接口
+
+- URL:/api/report/ob/fieldInfoAgent
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   字段列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+        	"nameForJava":"all",
+            "nameForDb":"all",
+            "desc":"全部",
+            "index":"111",
+            "parentIndex":"-1",
+            "isBaseField":"false",
+            "isTotalStatisticsCan":"false",
+            "children":[
+                {
+                    "nameForJava":"task",
+                    "nameForDb":"task",
+                    "desc":"任务名称",
+                    "index":"1",
+                    "parentIndex":"111",
+                    "isBaseField":"true",
+                    "isTotalStatisticsCan":"true"
+                }
+            ]
+        }
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+
+
+```
+
+对象字段说明：
+
+|          参数          |   类型    |           描述           |
+| :------------------: | :-----: | :--------------------: |
+|     nameForJava      | String  |       字段名字：驼峰命名        |
+|      nameForDb       | String  |     字段名字：多个单词用_分隔      |
+|         desc         | String  |          字段描述          |
+|        index         |   int   |         字段下标索引         |
+|     parentIndex      |   int   | 父节点下标索引，-1为没有父节点，默认为-1 |
+|     isBaseField      | boolean |    是否是基础字段:默认为true     |
+| isTotalStatisticsCan | boolean |        是否能统计合计         |
+|       children       |  字段对象   |         子节点对象          |
+
+##### 3.2 任务列表接口
+
+- URL:/api/report/ob/taskList
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |   类型   |   描述   |
+| :----------: | :----: | :----: |
+| departmentId | String | 所属部门id |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |   任务列表    |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "tid":1,
+            "tname":"测试"
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|  参数   |   类型   |  描述  |
+| :---: | :----: | :--: |
+|  tid  | String | 任务id |
+| tname | String | 任务名称 |
+
+##### 4. 预测外呼任务报表
+
+- URL:/api/report/ob/task
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                   描述                   |
+| :------------: | :--: | :----: | :------------------------------------: |
+|   tenancyId    |  必选  | String |                 所属企业id                 |
+| organizationId |  必选  | String |                 所属机构id                 |
+|  departmentId  |  必选  | String |                 所属部门id                 |
+|      type      | 非必选  |  Int   |  报表类型，默认日报表，0：日报表，1：周报表，2：月报表，3：自定义时段  |
+|   startTime    |  必选  | string |                  开始时间                  |
+|    endTime     |  必选  | string |                  结束时间                  |
+| splitTimeType  | 非必选  |  Int   |   分时报表类型，默认各时段累计 ，1：各时段累计，2：各时段连续显示    |
+|   startHour    | 非必选  | Float  |                统计时段起始值                 |
+|    endHour     | 非必选  | Float  |                统计时段终止值                 |
+|      tids      | 非必选  | String | 要统计的预览外呼任务，传递时用逗号连接的任务下标索引，通过任务列表接口获得  |
+|     fields     | 非必选  | String | 要输出的字段，传递时使用逗号连接的字段下标索引，通过预览外呼座席字段接口获得 |
+|     export     | 非必选  |  int   |     100：导出本页，200：导出全部，若导出返回导出文件url     |
+|     start      | 非必选  | String |               当前页码,默认第一页               |
+|     limit      | 非必选  | string |              每页记录数，默认10条               |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  | 预测外呼任务列表  |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "task":"",
+            "totalCount":"",
+            "calledCount":"",
+            "answerCount":"",
+            "answerDelayTotal":"",
+            "bridgeCount":"",
+            "harassCount":"",
+            "predictAdjust":"",
+            "startTime":"",
+            "overTime":"",
+            "duration":"",
+            "agentUtilization":"",
+            "warmUp":"",
+            "avgAnswerDelay":"",
+            "harassRate":"",
+            "harassRateRealtime":"",
+            "answerRate":"",
+            "answerRateRealtime":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|         参数         |   类型   |    描述    |
+| :----------------: | :----: | :------: |
+|        task        | String |    任务    |
+|     totalCount     | String |   号码总数   |
+|    calledCount     | String |   呼叫数    |
+|    answerCount     | String |   应答数    |
+|  answerDelayTotal  | String |  平均延时时间  |
+|    bridgeCount     | String |  双方接听数   |
+|    harassCount     | String |   骚扰数    |
+|   predictAdjust    | String |   超呼系数   |
+|     startTime      | String |   开始时间   |
+|      overTime      | String |   结束时间   |
+|      duration      | String |   持续时间   |
+|  agentUtilization  | String |  座席利用率   |
+|       warmUp       | String | 是否在预热阶段  |
+|   avgAnswerDelay   | String | 平均延迟应答时间 |
+|     harassRate     | String |   骚扰率    |
+| harassRateRealtime | String |  实际骚扰率   |
+|     answerRate     | String |   应答率    |
+| answerRateRealtime | String |  实际应答率   |
+
+### 质检管理
+
+#### 案例组管理
+
+##### 1. 查看案例组列表
+
+- URL:/api/quality/group
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |     描述      |
+| :------------: | :--: | :----: | :---------: |
+|   tenancyId    |  必选  | String |   所属企业id    |
+| organizationId |  必选  | String |   所属机构id    |
+|  departmentId  |  必选  | String |   所属部门id    |
+|     start      | 非必选  | String | 当前页码,默认第一页  |
+|     limit      | 非必选  | string | 每页记录数，默认10条 |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  案例组管理列表  |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "id":"",
+            "enterpriseId":"",
+            "name":"",
+            "comment":"",
+            "creaTime":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|      参数      |   类型   |  描述  |
+| :----------: | :----: | :--: |
+|      id      | String | 主键id |
+| enterpriseId | String | 企业id |
+|     name     | String |  组名  |
+|   comment    | String |  描述  |
+|   creaTime   | String | 创建时间 |
+
+##### 2. 新增案例组
+
+- URL:/api/quality/group
+- Method:POST
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |   类型   |   描述   |
+| :----------: | :--: | :----: | :----: |
+|     name     |  必选  | String |   组名   |
+|   comment    |  必选  | String |   描述   |
+| departmentId |  必选  | String | 所属部门id |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | object |   案例组对象   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "id":"1",
+            "enterpriseId":"10001",
+            "name":"测试",
+            "comment":"测试",
+            "creaTime":"2018-01-02 15:40:00"
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+##### 3. 修改案例组
+
+- URL:/api/quality/group
+- Method:PUT
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |   类型   |   描述   |
+| :----------: | :--: | :----: | :----: |
+|      id      |  必选  | String |  主键id  |
+| departmentId |  必选  | String | 所属部门id |
+|     name     |  必选  | String |   组名   |
+|   comment    |  必选  | String |   描述   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | object |   案例组对象   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "id":"1",
+            "enterpriseId":"10001",
+            "name":"测试",
+            "comment":"测试",
+            "creaTime":"2018-01-02 15:40:00"
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+##### 4. 删除案例组
+
+- URL:/api/quality/group
+- Method:DELETE
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |   类型   |   描述   |
+| :----------: | :--: | :----: | :----: |
+|      id      |  必选  | String |  主键id  |
+| departmentId |  必选  | String | 所属部门id |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": []
+}
+```
+
+#### 录音管理
+
+- URL:/api/quality/record
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |                    描述                    |
+| :------------: | :--: | :----: | :--------------------------------------: |
+|   tenancyId    |  必选  | String |                  所属企业id                  |
+| organizationId |  必选  | String |                  所属机构id                  |
+|  departmentId  |  必选  | String |                  所属部门id                  |
+|    callType    | 非必选  |  Int   |        默认来电，1：来电，4：外呼，5：webcall外呼        |
+| conditionName  | 非必选  | String | 搜索条件，cno：座席工号，agent_number：坐席电话，customer_number：客户电话，queue_no：队列号，queue_name：队列名称 |
+| conditionValue | 非必选  | String |                  搜索条件取值                  |
+|   startTime    | 非必选  | String |                   起始时间                   |
+|    endTime     | 非必选  | String |                   终止时间                   |
+| startDuration  | 非必选  | String |                 通话时长起始值                  |
+|  endDuration   | 非必选  | String |                 通话时长终止值                  |
+|  samplingMode  | 非必选  |  Int   |     抽样方式，-1：不抽样，1：按比例随机抽样，2：按绝对数随机抽样     |
+|    percent     | 非必选  | String |                   抽样比例                   |
+|   absNumber    | 非必选  |  Int   |                   抽样数目                   |
+|     limit      | 非必选  | string |               每页记录数，默认10条                |
+|     start      | 非必选  | String |                当前页码,默认第一页                |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  录音管理列表   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "id":"1",
+            "uniqueId":"123",
+            "callType":"",
+            "cno":"",
+            "agentName":"",
+            "agentCrmId":"",
+            "agentNumber":"",
+            "businessType":"",
+            "customerNumber":"",
+            "endTime":"",
+            "hotline":"",
+            "inCaseLib":"",
+            "inCaseLibStr":"",
+            "numberTrunk":"",
+            "qno":"",
+            "queueName":"",
+            "recordFile":"",
+            "recordFileNames":"",
+            "score":"",
+            "scoreComment":"",
+            "startTime":"",
+            "taskId":"",
+            "taskName":"",
+            "totalDuration":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|       参数       |    类型    |                    描述                    |
+| :------------: | :------: | :--------------------------------------: |
+|       id       |  String  |                 通话记录唯一标识                 |
+|      cno       |  String  |                   座席工号                   |
+|   agentName    |  String  |                   座席姓名                   |
+|  agentNumber   |  String  |                   座席电话                   |
+| customerNumber |  String  |                   客户电话                   |
+|      qno       |  String  |                   队列号                    |
+|   queueName    |  String  |                   队列名称                   |
+|    hotline     |  String  |                   热线号码                   |
+|    callType    |   Int    | 呼叫类型，1：来电，2 or 5：webcall外呼，4 or 6 or 9：外呼 |
+|   startTime    |  String  |                   开始时间                   |
+|    endTime     |  String  |                   结束时间                   |
+| totalDuration  |  String  |                  通话总时长                   |
+| recordFileName | String[] |                  录音文件名称                  |
+|    uniqueId    |  String  |                  电话唯一标示                  |
+|     score      |   int    |                   录音分数                   |
+|  scoreComment  |  String  |                   评分备注                   |
+|   inCaseLib    |   int    |                是否在案例库中的代码                |
+|  inCaseLibStr  |  String  |               是否在案例库中的中文描述               |
+
+##### 1. 录音接口（试听或下载）
+
+- URL:/api/quality/recordUrl
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |   类型   |       描述        |
+| :----------: | :--: | :----: | :-------------: |
+|   fileName   |  必选  | String |      文件名称       |
+| recordFormat |  必选  | String |      录音格式       |
+|   download   |  必选  | String | 是否下载，下载：1，不下载为空 |
+| departmentId | 非必选  |  Int   |      部门id       |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  录音管理列表   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "url":"http://voice-dev.cticloud.cn/27122017/record/6000001/6000001-20171227181623-01012345678-15810656011--record-sip-1-1514369783.5.mp3",
+    "result":"success"
+}
+```
+
+字段说明：
+
+|   参数   |   类型   |   描述    |
+| :----: | :----: | :-----: |
+|  url   | String | 访问录音url |
+| result | String |  成功标志   |
+
+##### 2. 彩铃录音接口（试听或下载）
+
+- URL:/api/quality/recordRingUrl
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |   类型   |       描述        |
+| :----------: | :--: | :----: | :-------------: |
+|   fileName   |  必选  | String |      文件名称       |
+| recordFormat |  必选  | String |      录音格式       |
+|   download   |  必选  | String | 是否下载，下载：1，不下载为空 |
+| departmentId | 非必选  |  Int   |      部门id       |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  录音管理列表   |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "url":"http://voice-dev.cticloud.cn/27122017/record/6000001/6000001-20171227181623-01012345678-15810656011--record-sip-1-1514369783.5.mp3",
+    "result":"success"
+}
+```
+
+字段说明：
+
+|   参数   |   类型   |   描述    |
+| :----: | :----: | :-----: |
+|  url   | String | 访问录音url |
+| result | String |  成功标志   |
+
+##### 3. 录音评分
+
+- URL:/api/quality/recordMarking
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |   类型   |       描述        |
+| :----------: | :--: | :----: | :-------------: |
+|    score     |  必选  | String |       分数        |
+| scoreComment | 非必选  | String |      分数备注       |
+|   groupId    |  必选  | String |      案例组id      |
+|   uniqueId   |  必选  | String |    通话录音唯一标识     |
+|    cdrId     |  必选  | String | cdr_id串，中间用逗号分隔 |
+|   callType   |  必选  | String |   呼叫类型，呼入还是外呼   |
+| departmentId |  必选  | String |      部门id       |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功"
+}
+```
+
+字段说明：
+
+|   参数   |   类型   |       描述       |
+| :----: | :----: | :------------: |
+| status |  int   | 状态码，成功：0，失败：-1 |
+|  msg   | String |      标志信息      |
+
+##### 4. 添加录音到案例库
+
+- URL:/api/quality/addRecord
+- Method:POST
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |       描述        |
+| :------------: | :--: | :----: | :-------------: |
+| caseLibGroupId |  必选  | String |      案例组id      |
+|    cdrIdStr    |  必选  | String | 语音文件id串，中间用逗号分隔 |
+|    callType    |  必选  | String |   呼叫类型，呼入还是外呼   |
+|  currentMonth  |  必选  | String |      当前月份       |
+|  departmentId  |  必选  | String |      部门id       |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "添加成功"
+}
+```
+
+
+
+#### 案例库管理
+
+- URL:/api/quality/caseLib
+- Method:GET
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |     描述      |
+| :------------: | :--: | :----: | :---------: |
+|   tenancyId    |  必选  | String |   所属企业id    |
+| organizationId |  必选  | String |   所属机构id    |
+|  departmentId  |  必选  | String |   所属部门id    |
+|    groupId     | 非必选  |  Int   |    案例组id    |
+|      cno       | 非必选  | String |    座席工号     |
+| customerNumber | 非必选  | String |    客户电话     |
+|   startScore   | 非必选  | String |   录音分数起始值   |
+|    endScore    | 非必选  | String |   录音分数终止值   |
+|   startTime    | 非必选  | String |    起始时间     |
+|    endTime     | 非必选  | String |    终止时间     |
+|     limit      | 非必选  | string | 每页记录数，默认10条 |
+|     start      | 非必选  | String | 当前页码,默认第一页  |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+| result | array  |  案例库管理列表  |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result": [
+        {
+            "id":"597",
+            "enterpriseId":"",
+            "uniqueId":"sip-1-1513770382.884",
+            "agentCrmId":"",
+            "agentName":"ceshi",
+            "businessType":"",
+            "caseLibGroup":{
+              "id":"9",
+              "enterpriseId":"",
+              "name":"5556",
+              "comment":"",
+              "creaTime":"2017-09-12 12:01:00"
+            },
+            "cno":"",
+            "createTime":"",
+            "customerNumber":"",
+            "deleteTime":"",
+            "duration":"",
+            "endTime":"",
+            "enterpriseId":"",
+            "isDelete":"",
+            "recordFile":"",
+            "recordFileNames":"",
+            "score":"",
+            "scoreComment":"",
+            "startTime":""
+        }   
+    ],
+    "currentPageNo":1,
+    "pageSize" : 1,
+    "totalCount" : 1
+}
+```
+
+对象字段说明：
+
+|       参数       |   类型   |          描述          |
+| :------------: | :----: | :------------------: |
+|       id       |  Int   |       案例库对象id        |
+|      name      | String | 所属案例组,案例组对象字段的name字段 |
+|      cno       | String |         座席工号         |
+|   agentName    | String |         座席姓名         |
+| customerNumber | String |         客户电话         |
+| recordFileName | String |        录音文件名称        |
+|     score      | String |         录音分数         |
+|    duration    | String |         通话时长         |
+|   startTime    | String |         开始时间         |
+|    endTime     | String |         结束时间         |
+|   createTime   | String |         加入时间         |
+|  caseLibGroup  | object |        案例组对象         |
+
+##### 1. 修改案例库
+
+- URL:/api/quality/caseLib
+- Method:PUT
+- Content type: application/json
+- 输入参数：
+
+|       参数       |  要求  |   类型   |  描述   |
+| :------------: | :--: | :----: | :---: |
+|       id       |  必选  | String | 案例库id |
+| caseLibGroupId |  必选  | String | 案例组id |
+|     score      |  必选  | String |  评分   |
+|  scoreComment  |  必选  | String | 评分说明  |
+|  departmentId  |  必选  | String | 部门id  |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "修改成功",
+    "result":[]
+}
+```
+
+##### 2. 删除案例库
+
+- URL:/api/quality/caseLib
+- Method:DELETE
+- Content type: application/json
+- 输入参数：
+
+|      参数      |  要求  |    类型    |   描述    |
+| :----------: | :--: | :------: | :-----: |
+|  caseLibIds  |  必选  | String[] | 案例库id数组 |
+| departmentId |  必选  |  String  |  部门id   |
+
+接口返回说明：
+
+|   参数   |   类型   |    描述     |
+| :----: | :----: | :-------: |
+| status |  int   |    状态码    |
+|  msg   | String | 状态说明，例如成功 |
+
+接口返回示例：
+
+```
+{
+    "status": 0,
+    "msg": "删除成功",
+    "result":[]
+}
+```
 
 ##### 
