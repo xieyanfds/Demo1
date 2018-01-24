@@ -2700,9 +2700,9 @@ role_module对象中的参数
 | increaseValue    | String | n满足条件后统计项增加的值，数字或data中配置的字段（字段值必须是数字）    |
 | createTime       | String | 创建时间,格式:yyyy-MM-dd HH:mm:ss              |
 
-### 9. 获取固定统计参数
+### 9. 获取系统统计
 
-- URL: /api/statistic/fixed
+- URL: /api/statistic/system
 - Method: GET
 - 输入参数：
 
@@ -2714,6 +2714,8 @@ role_module对象中的参数
 | status | int    | 0成功，-1失败  |
 | msg    | String | 状态说明，例如成功 |
 | result | JSON   | 参数统计集合数据 |
+
+[查看全部系统统计参数](./sip-router表设计.md#系统级别)
 
 &emsp;&emsp;返回示例
 
@@ -2750,6 +2752,8 @@ role_module对象中的参数
 | msg    | String | 状态说明，例如成功 |
 | result | JSON   | 产品统计集合数据 |
 
+[查看全部产品统计参数](./sip-router表设计.md#产品级别)
+
 &emsp;&emsp;返回示例
 
 ```
@@ -2784,6 +2788,8 @@ role_module对象中的参数
 | status | int    | 0成功，-1失败  |
 | msg    | String | 状态说明，例如成功 |
 | result | JSON   | 平台统计集合数据 |
+
+[查看全部平台统计参数](./sip-router表设计.md#平台级别)
 
 &emsp;&emsp;返回示例
 
@@ -2820,6 +2826,8 @@ role_module对象中的参数
 | msg    | String | 状态说明，例如成功 |
 | result | JSON   | 业务统计集合数据 |
 
+[查看全部业务统计参数](./sip-router表设计.md#业务级别)
+
 &emsp;&emsp;返回示例
 
 ```
@@ -2854,6 +2862,8 @@ role_module对象中的参数
 | status | int    | 0成功，-1失败  |
 | msg    | String | 状态说明，例如成功 |
 | result | JSON   | 中继组统计集合数据 |
+
+[查看全部中继组统计参数](./sip-router表设计.md#中继组级别)
 
 &emsp;&emsp;返回示例
 
@@ -2890,9 +2900,10 @@ role_module对象中的参数
 | msg    | String | 状态说明，例如成功 |
 | result | JSON   | 网关统计集合数据 |
 
+[查看全部网关统计参数](./sip-router表设计.md#网关级别)
+
 &emsp;&emsp;返回示例
 
-[查看全部网关统计参数](./sip-router表设计.md#固定统计参数类)
 ```
 {
     "status": 0,
