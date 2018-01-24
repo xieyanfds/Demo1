@@ -153,6 +153,17 @@
 
 [&emsp;&emsp;&emsp;&emsp;8.获取实时统计列表](#8-获取实时统计列表)
 
+[&emsp;&emsp;&emsp;&emsp;9.获取固定统计参数](#9-获取固定统计参数)
+
+[&emsp;&emsp;&emsp;&emsp;10.获取产品统计](#10-获取产品统计)
+
+[&emsp;&emsp;&emsp;&emsp;11.获取平台统计](#11-获取平台统计)
+
+[&emsp;&emsp;&emsp;&emsp;12.获取业务统计](#12-获取业务统计)
+
+[&emsp;&emsp;&emsp;&emsp;13.获取中继组统计](#13-获取中继组统计)
+
+[&emsp;&emsp;&emsp;&emsp;14.获取网关统计](#14-获取网关统计)
 
 [&emsp;&emsp;告警管理](#告警管理)
 
@@ -219,17 +230,6 @@
 [&emsp;&emsp;1.获取opensips启动时间](#1-获取opensips启动时间)
 
 
-[获取固定统计参数](#获取固定统计参数)
-
-[获取产品统计](#获取产品统计)
-
-[获取平台统计](#获取平台统计)
-
-[获取业务统计](#获取业务统计)
-
-[获取中继组统计](#获取中继组统计)
-
-[获取网关统计](#获取网关统计)
 
 
 ### 交互数据结构
@@ -2700,6 +2700,213 @@ role_module对象中的参数
 | increaseValue    | String | n满足条件后统计项增加的值，数字或data中配置的字段（字段值必须是数字）    |
 | createTime       | String | 创建时间,格式:yyyy-MM-dd HH:mm:ss              |
 
+### 9. 获取固定统计参数
+
+- URL: /api/statistic/fixed
+- Method: GET
+- 输入参数：
+
+
+- 返回结果：
+
+| 字段     | 数据类型   | 说明        |
+| ------ | ------ | --------- |
+| status | int    | 0成功，-1失败  |
+| msg    | String | 状态说明，例如成功 |
+| result | JSON   | 参数统计集合数据 |
+
+&emsp;&emsp;返回示例
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result":[
+        {
+            "key":"sip-router.dialog.global",
+            "value":23,
+            "desc":"并发calls"
+        }
+    ]
+}
+
+```
+
+### 10. 获取产品统计
+
+- URL: /api/statistic/product
+- Method: GET
+- 输入参数：
+
+| 参数名    | 是否必填 | 数据类型   | 说明           |
+| ------ | ---- | ------ | ------------ |
+| product_id | 是    | int | 产品id |
+
+- 返回结果：
+
+| 字段     | 数据类型   | 说明        |
+| ------ | ------ | --------- |
+| status | int    | 0成功，-1失败  |
+| msg    | String | 状态说明，例如成功 |
+| result | JSON   | 产品统计集合数据 |
+
+&emsp;&emsp;返回示例
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result":[
+        {
+            "key":"sip-router.dialog.product.1",
+            "value":23,
+            "desc":"并发calls"
+        }
+    ]
+}
+
+```
+
+### 11. 获取平台统计
+
+- URL: /api/statistic/domain
+- Method: GET
+- 输入参数：
+
+| 参数名    | 是否必填 | 数据类型   | 说明           |
+| ------ | ---- | ------ | ------------ |
+| domain_id | 是    | int | 平台id |
+
+- 返回结果：
+
+| 字段     | 数据类型   | 说明        |
+| ------ | ------ | --------- |
+| status | int    | 0成功，-1失败  |
+| msg    | String | 状态说明，例如成功 |
+| result | JSON   | 平台统计集合数据 |
+
+&emsp;&emsp;返回示例
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result":[
+        {
+            "key":"sip-router.dialog.domain.1",
+            "value":23,
+            "desc":"并发calls"
+        }
+    ]
+}
+
+```
+
+### 12. 获取业务统计
+
+- URL: /api/statistic/service
+- Method: GET
+- 输入参数：
+
+| 参数名    | 是否必填 | 数据类型   | 说明           |
+| ------ | ---- | ------ | ------------ |
+| service_id | 是    | int | 业务id |
+
+- 返回结果：
+
+| 字段     | 数据类型   | 说明        |
+| ------ | ------ | --------- |
+| status | int    | 0成功，-1失败  |
+| msg    | String | 状态说明，例如成功 |
+| result | JSON   | 业务统计集合数据 |
+
+&emsp;&emsp;返回示例
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result":[
+        {
+            "key":"sip-router.dialog.service.1",
+            "value":23,
+            "desc":"并发calls"
+        }
+    ]
+}
+
+```
+
+### 13. 获取中继组统计
+
+- URL: /api/statistic/trunkgroup
+- Method: GET
+- 输入参数：
+
+| 参数名    | 是否必填 | 数据类型   | 说明           |
+| ------ | ---- | ------ | ------------ |
+| trunk_group_id | 是    | int | 中继组id |
+
+- 返回结果：
+
+| 字段     | 数据类型   | 说明        |
+| ------ | ------ | --------- |
+| status | int    | 0成功，-1失败  |
+| msg    | String | 状态说明，例如成功 |
+| result | JSON   | 中继组统计集合数据 |
+
+&emsp;&emsp;返回示例
+
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result":[
+        {
+            "key":"sip-router.dialog.trunk_group.1",
+            "value":23,
+            "desc":"并发calls"
+        }
+    ]
+}
+
+```
+
+### 14. 获取网关统计
+
+- URL: /api/statistic/gateway
+- Method: GET
+- 输入参数：
+
+| 参数名    | 是否必填 | 数据类型   | 说明           |
+| ------ | ---- | ------ | ------------ |
+| gateway_id | 是    | int | 网关id |
+
+- 返回结果：
+
+| 字段     | 数据类型   | 说明        |
+| ------ | ------ | --------- |
+| status | int    | 0成功，-1失败  |
+| msg    | String | 状态说明，例如成功 |
+| result | JSON   | 网关统计集合数据 |
+
+&emsp;&emsp;返回示例
+
+[查看全部网关统计参数](./sip-router表设计.md#固定统计参数类)
+```
+{
+    "status": 0,
+    "msg": "成功",
+    "result":[
+        {
+            "key":"sip-router.dialog.gateway.1",
+            "value":23,
+            "desc":"并发calls"
+        }
+    ]
+}
+
+```
 
 #### 告警管理
 ##### 1. 新增告警设置
@@ -3841,209 +4048,3 @@ role_module对象中的参数
 
 ```
 
-### 获取固定统计参数
-
-- URL: /api/statistic/fixed
-- Method: GET
-- 输入参数：
-
-
-- 返回结果：
-
-| 字段     | 数据类型   | 说明        |
-| ------ | ------ | --------- |
-| status | int    | 0成功，-1失败  |
-| msg    | String | 状态说明，例如成功 |
-| result | JSON   | 参数统计集合数据 |
-
-&emsp;&emsp;返回示例
-
-```
-{
-    "status": 0,
-    "msg": "成功",
-    "result":[
-        {
-            "key":"sip-router.dialog.global",
-            "value":23,
-            "desc":"并发calls"
-        }
-    ]
-}
-
-```
-
-### 获取产品统计
-
-- URL: /api/statistic/product
-- Method: GET
-- 输入参数：
-
-| 参数名    | 是否必填 | 数据类型   | 说明           |
-| ------ | ---- | ------ | ------------ |
-| product_id | 是    | int | 产品id |
-
-- 返回结果：
-
-| 字段     | 数据类型   | 说明        |
-| ------ | ------ | --------- |
-| status | int    | 0成功，-1失败  |
-| msg    | String | 状态说明，例如成功 |
-| result | JSON   | 产品统计集合数据 |
-
-&emsp;&emsp;返回示例
-
-```
-{
-    "status": 0,
-    "msg": "成功",
-    "result":[
-        {
-            "key":"sip-router.dialog.product.1",
-            "value":23,
-            "desc":"并发calls"
-        }
-    ]
-}
-
-```
-
-### 获取平台统计
-
-- URL: /api/statistic/domain
-- Method: GET
-- 输入参数：
-
-| 参数名    | 是否必填 | 数据类型   | 说明           |
-| ------ | ---- | ------ | ------------ |
-| domain_id | 是    | int | 平台id |
-
-- 返回结果：
-
-| 字段     | 数据类型   | 说明        |
-| ------ | ------ | --------- |
-| status | int    | 0成功，-1失败  |
-| msg    | String | 状态说明，例如成功 |
-| result | JSON   | 平台统计集合数据 |
-
-&emsp;&emsp;返回示例
-
-```
-{
-    "status": 0,
-    "msg": "成功",
-    "result":[
-        {
-            "key":"sip-router.dialog.domain.1",
-            "value":23,
-            "desc":"并发calls"
-        }
-    ]
-}
-
-```
-
-### 获取业务统计
-
-- URL: /api/statistic/service
-- Method: GET
-- 输入参数：
-
-| 参数名    | 是否必填 | 数据类型   | 说明           |
-| ------ | ---- | ------ | ------------ |
-| service_id | 是    | int | 业务id |
-
-- 返回结果：
-
-| 字段     | 数据类型   | 说明        |
-| ------ | ------ | --------- |
-| status | int    | 0成功，-1失败  |
-| msg    | String | 状态说明，例如成功 |
-| result | JSON   | 业务统计集合数据 |
-
-&emsp;&emsp;返回示例
-
-```
-{
-    "status": 0,
-    "msg": "成功",
-    "result":[
-        {
-            "key":"sip-router.dialog.service.1",
-            "value":23,
-            "desc":"并发calls"
-        }
-    ]
-}
-
-```
-
-### 获取中继组统计
-
-- URL: /api/statistic/trunkgroup
-- Method: GET
-- 输入参数：
-
-| 参数名    | 是否必填 | 数据类型   | 说明           |
-| ------ | ---- | ------ | ------------ |
-| trunk_group_id | 是    | int | 中继组id |
-
-- 返回结果：
-
-| 字段     | 数据类型   | 说明        |
-| ------ | ------ | --------- |
-| status | int    | 0成功，-1失败  |
-| msg    | String | 状态说明，例如成功 |
-| result | JSON   | 中继组统计集合数据 |
-
-&emsp;&emsp;返回示例
-
-```
-{
-    "status": 0,
-    "msg": "成功",
-    "result":[
-        {
-            "key":"sip-router.dialog.trunk_group.1",
-            "value":23,
-            "desc":"并发calls"
-        }
-    ]
-}
-
-```
-
-### 获取网关统计
-
-- URL: /api/statistic/gateway
-- Method: GET
-- 输入参数：
-
-| 参数名    | 是否必填 | 数据类型   | 说明           |
-| ------ | ---- | ------ | ------------ |
-| gateway_id | 是    | int | 网关id |
-
-- 返回结果：
-
-| 字段     | 数据类型   | 说明        |
-| ------ | ------ | --------- |
-| status | int    | 0成功，-1失败  |
-| msg    | String | 状态说明，例如成功 |
-| result | JSON   | 网关统计集合数据 |
-
-&emsp;&emsp;返回示例
-
-```
-{
-    "status": 0,
-    "msg": "成功",
-    "result":[
-        {
-            "key":"sip-router.dialog.gateway.1",
-            "value":23,
-            "desc":"并发calls"
-        }
-    ]
-}
-
-```
