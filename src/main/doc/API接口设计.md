@@ -153,7 +153,7 @@
 
 [&emsp;&emsp;&emsp;&emsp;8.获取实时统计列表](#8-获取实时统计列表)
 
-[&emsp;&emsp;&emsp;&emsp;9.获取固定统计参数](#9-获取固定统计参数)
+[&emsp;&emsp;&emsp;&emsp;9.获取系统统计](#9-获取系统统计)
 
 [&emsp;&emsp;&emsp;&emsp;10.获取产品统计](#10-获取产品统计)
 

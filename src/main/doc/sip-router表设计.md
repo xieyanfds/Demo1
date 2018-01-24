@@ -475,7 +475,7 @@ opensips实例表，设计容量100
 | 5    | sip-router.system.service.${service_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 6    | sip-router.system.service.${service_id}.calls.duration | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 9    | sip-router.system.service.${service_id}.calls.limit_no_route | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-##### 中级组级别 
+##### 中继组级别 
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.trunk_group.${trunk_group_id}.${minute} | String |         | 按分钟cps 统计        | api cdr收集 |
