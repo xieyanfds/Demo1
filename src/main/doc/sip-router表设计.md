@@ -427,7 +427,7 @@ opensips实例表，设计容量100
 
 #### 固定统计参数类
 
-#### 系统级别
+##### 系统级别
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.global.${minute}   | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
@@ -443,7 +443,7 @@ opensips实例表，设计容量100
 | 10   | sip-router.system.calls.limit_product_caps | String | 00:00清零 | 因calls失败calls    | api cdr收集 |
 | 11   | sip-router.system.calls.limit_product_calls | String | 00:00清零 | 因calls失败calls    | api cdr收集 |
 | 12    | sip-router.system.calls.limit_no_route   | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-#### 产品级别         
+##### 产品级别         
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |                          
 | 1    | sip-router.system.cps.product.${product_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
@@ -455,7 +455,7 @@ opensips实例表，设计容量100
 | 7    | sip-router.system.product.${product_id}.calls.limit_product_cps | String | 00:00清零 | 因cps失败calls      | api cdr收集 |
 | 8    | sip-router.system.product.${product_id}.calls.limit_product_calls | String | 00:00清零 | 因calls失败calls    | api cdr收集 |
 | 9    | sip-router.system.product.${product_id}.calls.limit_no_route | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-#### 平台级别 
+##### 平台级别 
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.domain.${domain_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
@@ -465,7 +465,7 @@ opensips实例表，设计容量100
 | 5    | sip-router.system.domain.${domain_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 6    | sip-router.system.domain.${domain_id}.calls.duration | String | 00:00清零 | 已接听分钟数           | api cdr收集 |
 | 9    | sip-router.system.domain.${domain_id}.calls.limit_no_route | String | 00:00清零 | 因cps失败calls      | api cdr收集 |
-#### 业务级别 
+##### 业务级别 
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.service.${service_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
@@ -475,7 +475,7 @@ opensips实例表，设计容量100
 | 5    | sip-router.system.service.${service_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 6    | sip-router.system.service.${service_id}.calls.duration | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 9    | sip-router.system.service.${service_id}.calls.limit_no_route | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-#### 中级组级别 
+##### 中级组级别 
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.trunk_group.${trunk_group_id}.${minute} | String |         | 按分钟cps 统计        | api cdr收集 |
@@ -483,7 +483,7 @@ opensips实例表，设计容量100
 | 3    | sip-router.system.trunk_group.${trunk_group_id}.calls.routed | String | 00:00清零 | 已路由calls         | api cdr收集 |
 | 4    | sip-router.system.trunk_group.${trunk_group_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 5    | sip-router.system.trunk_group.${trunk_group_id}.calls.duration | String | 00:00清零 | 已接分钟数            | api cdr收集 |
-#### 网关级别       
+##### 网关级别       
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.gateway.${gateway_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
