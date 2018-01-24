@@ -427,9 +427,9 @@ opensips实例表，设计容量100
 
 #### 固定统计参数类
 
+#### 系统级别
 | 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
 | ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
-#### 系统级别                                   
 | 1    | sip-router.system.cps.global.${minute}   | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
 | 2    | sip-router.dialog.global                 | String |         | 并发calls          | api cdr收集 |
 | 3    | sip-router.system.calls.request          | String | 00:00清零 | 已请求calls         | api cdr收集 |
@@ -442,8 +442,10 @@ opensips实例表，设计容量100
 | 9    | sip-router.system.calls.limit_no_service | String | 00:00清零 | 因无service失败calls | api cdr收集 |
 | 10   | sip-router.system.calls.limit_product_caps | String | 00:00清零 | 因calls失败calls    | api cdr收集 |
 | 11   | sip-router.system.calls.limit_product_calls | String | 00:00清零 | 因calls失败calls    | api cdr收集 |
-| 9    | sip-router.system.calls.limit_no_route   | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-#### 产品级别                                     
+| 12    | sip-router.system.calls.limit_no_route   | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
+#### 产品级别         
+| 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
+| ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |                          
 | 1    | sip-router.system.cps.product.${product_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
 | 2    | sip-router.dialog.product.${product_id}  | String |         | 并发calls          | api cdr收集 |
 | 3    | sip-router.system.product.${product_id}.calls.request | String | 00:00清零 | 已请求calls         | api cdr收集 |
@@ -453,7 +455,9 @@ opensips实例表，设计容量100
 | 7    | sip-router.system.product.${product_id}.calls.limit_product_cps | String | 00:00清零 | 因cps失败calls      | api cdr收集 |
 | 8    | sip-router.system.product.${product_id}.calls.limit_product_calls | String | 00:00清零 | 因calls失败calls    | api cdr收集 |
 | 9    | sip-router.system.product.${product_id}.calls.limit_no_route | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-#### 平台级别                                     |        |         |                  |           |
+#### 平台级别 
+| 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
+| ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.domain.${domain_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
 | 2    | sip-router.dialog.domain.${domain_id}    | String |         | 并发calls          | api cdr收集 |
 | 3    | sip-router.system.domain.${domain_id}.calls.request | String | 00:00清零 | 已请求calls         | api cdr收集 |
@@ -461,7 +465,9 @@ opensips实例表，设计容量100
 | 5    | sip-router.system.domain.${domain_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 6    | sip-router.system.domain.${domain_id}.calls.duration | String | 00:00清零 | 已接听分钟数           | api cdr收集 |
 | 9    | sip-router.system.domain.${domain_id}.calls.limit_no_route | String | 00:00清零 | 因cps失败calls      | api cdr收集 |
-#### 业务级别                                  
+#### 业务级别 
+| 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
+| ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.service.${service_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
 | 2    | sip-router.dialog.service.${service_id}  | String |         | 并发calls          | api cdr收集 |
 | 3    | sip-router.system.service.${service}.calls.request | String | 00:00清零 | 已请求calls         | api cdr收集 |
@@ -469,13 +475,17 @@ opensips实例表，设计容量100
 | 5    | sip-router.system.service.${service_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 6    | sip-router.system.service.${service_id}.calls.duration | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 9    | sip-router.system.service.${service_id}.calls.limit_no_route | String | 00:00清零 | 因无路由失败calls      | api cdr收集 |
-#### 中继组级别                                    
+#### 中级组级别 
+| 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
+| ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.trunk_group.${trunk_group_id}.${minute} | String |         | 按分钟cps 统计        | api cdr收集 |
 | 2    | sip-router.system.trunk_group.${trunk_group_id}.calls.request | String | 00:00清零 | 已请求calls         | api cdr收集 |
 | 3    | sip-router.system.trunk_group.${trunk_group_id}.calls.routed | String | 00:00清零 | 已路由calls         | api cdr收集 |
 | 4    | sip-router.system.trunk_group.${trunk_group_id}.calls.answered | String | 00:00清零 | 已接听个数            | api cdr收集 |
 | 5    | sip-router.system.trunk_group.${trunk_group_id}.calls.duration | String | 00:00清零 | 已接分钟数            | api cdr收集 |
-#### 网关级别                                   
+#### 网关级别       
+| 序号   | key                                      | value  | expire  | 说明               | 数据统计来源    |
+| ---- | ---------------------------------------- | ------ | ------- | ---------------- | --------- |
 | 1    | sip-router.system.cps.gateway.${gateway_id}.${minute} | String | 24小时过期  | 按分钟cps 统计        | api cdr收集 |
 | 2    | sip-router.dialog.gateway.${gateway_id}  | String |         | 并发calls          | api cdr收集 |
 | 3    | sip-router.system.gateway.${gateway_id}.calls.request | String | 00:00清零 | 已请求calls         | api cdr收集 |
