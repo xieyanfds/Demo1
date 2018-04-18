@@ -16,7 +16,6 @@ import java.lang.reflect.Method;
 public class Test1 {
     public static void main(String[] args) {
         try {
-
             BeanInfo beanInfo = Introspector.getBeanInfo(User.class);
             PropertyDescriptor[] propertyDescriptors = beanInfo.getPropertyDescriptors();
             for(PropertyDescriptor p :propertyDescriptors){
