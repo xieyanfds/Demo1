@@ -2,21 +2,29 @@ package test.Test;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
+import test.domain.User;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/12/4.
  */
 public class TestMultimap {
     public static void main(String[] args) {
-        Multimap<String, String> myMultiMap = ArrayListMultimap.create();
-        myMultiMap.put("Fruits", "Apple");
+        Multimap<String, Object> myMultiMap = ArrayListMultimap.create();
+        myMultiMap.put("Fruits", new User("1","2"));
         myMultiMap.put("Fruits", "Pear");
         myMultiMap.put("Fruits", "Banana");
         myMultiMap.put("Vegetables", "eggplant");
 
         System.out.println("myMultiMap size:" + myMultiMap.size());
 
-        System.out.println("myMultiMap.get(Fruits): " + myMultiMap.get("Fruits"));
+        List<?> fruits = (List<? extends Object>) myMultiMap.get("Fruits");
+
+        fruits.forEach(o->{
+            System.out.println(o);
+        });
+        System.out.println("myMultiMap.get(fruits): " + fruits);
         System.out.println("myMultiMap.get(Vegetables): " + myMultiMap.get("Vegetables"));
 
         System.out.println("keys:");
@@ -25,7 +33,7 @@ public class TestMultimap {
         }
 
         System.out.println("values:");
-        for (String value : myMultiMap.values()) {
+        for (Object value : myMultiMap.values()) {
             System.out.println(value);
         }
 
