@@ -5,7 +5,7 @@ table th:first-of-type {
 </style>
 
 
-表情一：:+1:,表情二：:o:
+表情一： :maple_leaf:,表情二： :hatched_chick:
 
 变量type定义，包括nameType和valueType，定义一致：
 <table>
