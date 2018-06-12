@@ -33,7 +33,7 @@ table th:first-of-type {
     <td> 随机字符串 </td>
     <td> json结构的字符串，例如：
     
-```json
+```
 
     "[
         {
