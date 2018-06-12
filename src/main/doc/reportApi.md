@@ -8,7 +8,32 @@ table th:first-of-type {
 表情一：:+1:,表情二：:o:
 
 变量type定义，包括nameType和valueType，定义一致：
-
+<table>
+  <tr>
+    <th width=10% >type</th>
+    <th width=40%>说明</th>
+    <th width="50%">示例</th>
+  </tr>
+  <tr>
+    <td >1 </td>
+    <td> 字符串  </td>
+    <td> tell  </td>
+  </tr>
+  <tr>
+    <td >2 </td>
+    <td> 固定变量 </td>
+    <td> ci </td>
+  <tr>
+    <td >3 </td>
+    <td> avp变量 </td>
+    <td>  tel_areacode_len </td>
+  </tr>
+  <tr>
+    <td >4 </td>
+    <td> 随机字符串 </td>
+    <td>  json结构的字符串，例如："[{"percent":"80", "randomstr":["test1,test2,test3"], "randomSize":3 },{"percent":"20", "randomstr":["test1,test2,test3"], "randomSize":3}]"（系统会在此数组中根据比例选择对应的`randomstr`字段中的值随机选择一个,此字段最大支持100个 设置号码段例子:075588646700+3,075588646801+9,075588646901,代码自动展开结果：075588646700,075588646701,075588646702,075588646703,075588646801,075588646802,075588646803,075588646804,075588646805,075588646806,075588646807,075588646808,075588646809,075588646810,075588646901 </td>
+  </tr>
+</table>
 
 | type | 说明               | 示例               |
 | ---- | ------------------ | ------------------ |
@@ -69,3 +94,6 @@ table th:first-of-type {
     <td>  逆序排列 </td>
   </tr>
 </table>
+
+
+表情一：:+1:,表情二：:o:
