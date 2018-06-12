@@ -1,4 +1,12 @@
+<style>
+table th:first-of-type {
+    width: 100px;
+}
+</style>
+
+
 变量type定义，包括nameType和valueType，定义一致：
+
 
 <table>
   <tr>
