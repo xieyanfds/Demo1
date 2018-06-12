@@ -1,11 +1,11 @@
 变量type定义，包括nameType和valueType，定义一致：
 
-<table>
-  <tr>
-    <th width=10%, bgcolor=yellow >参数</th>
-    <th width=40%, bgcolor=yellow>详细解释</th>
-    <th width="50%", bgcolor=yellow>备注</th>
-  </tr>
+<style>
+table th:first-of-type {
+    width: 100px;
+}
+</style>
+
 | type | 说明               | 示例               |
 | ---- | ------------------ | ------------------ |
 | 1    | 字符串             | tell               |
@@ -15,7 +15,7 @@
 | 5    | 被叫号码av变量     | status             |
 | 6    | 主叫号码av变量     | trunkGroup/carrier |
 | 7    | 随机字符串    | <td style="width:100px">json结构的字符串，例如："[{"percent":"80", "randomstr":["test1,test2,test3"], "randomSize":3 },{"percent":"20", "randomstr":["test1,test2,test3"], "randomSize":3}]"（系统会在此数组中根据比例选择对应的`randomstr`字段中的值随机选择一个,此字段最大支持100个 设置号码段例子:075588646700+3,075588646801+9,075588646901,代码自动展开结果：075588646700,075588646701,075588646702,075588646703,075588646801,075588646802,075588646803,075588646804,075588646805,075588646806,075588646807,075588646808,075588646809,075588646810,075588646901</td>|
-</table>
+
  
  <ul>
     <li>1</li>
