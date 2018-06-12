@@ -9,7 +9,7 @@ table  {
 表情一： :maple_leaf:,表情二： :hatched_chick:
 
 变量type定义，包括nameType和valueType，定义一致：
-<table background='red';>
+<table background=red;>
   <tr>
     <th width=10% >type</th>
     <th width=30%>说明</th>
