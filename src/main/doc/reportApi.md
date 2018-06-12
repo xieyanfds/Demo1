@@ -11,7 +11,7 @@ table th:first-of-type {
 <table>
   <tr>
     <th width=10% >type</th>
-    <th width=40%>说明</th>
+    <th width=30%>说明</th>
     <th width="50%">示例</th>
   </tr>
   <tr>
