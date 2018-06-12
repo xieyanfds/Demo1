@@ -30,7 +30,7 @@ table  {
     <td>  tel_areacode_len </td>
   </tr>
   <tr>
-    <td >4 </td>
+    <td >7 </td>
     <td> 随机字符串 </td>
     <td> json结构的字符串，例如：
     
