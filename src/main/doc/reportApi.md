@@ -35,7 +35,7 @@ table th:first-of-type {
     
 ```json
 
-    [
+    "[
         {
             "percent": "80",
             "randomstr": [
@@ -50,7 +50,7 @@ table th:first-of-type {
             ],
             "randomSize": 3
         }
-    ]
+    ]"
     
 ```
 
