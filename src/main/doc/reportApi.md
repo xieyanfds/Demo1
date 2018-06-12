@@ -32,9 +32,12 @@ table th:first-of-type {
     <td >4 </td>
     <td> 随机字符串 </td>
     <td> json结构的字符串，例如：
-```json 
+    
+```json
+
     "[{"percent":"80", "randomstr":["test1,test2,test3"], "randomSize":3 },
     {"percent":"20", "randomstr":["test1,test2,test3"], "randomSize":3}]"
+    
 ```
 
     （系统会在此数组中根据比例选择对应的`randomstr`字段中的值随机选择一个,此字段最大支持100个
