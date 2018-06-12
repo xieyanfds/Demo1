@@ -1,5 +1,6 @@
 <style>
-table th:first-of-type {
+table  {
+    background:red;
     width: 100px;
 }
 </style>
